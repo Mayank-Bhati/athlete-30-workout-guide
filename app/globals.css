@@ -1,0 +1,123 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground); --font-sans: var(--font-geist-sans); --font-mono: var(--font-geist-mono); --font-heading: var(--font-geist-sans);
+  --color-ring: var(--ring); --color-input: var(--input); --color-border: var(--border); --color-destructive: var(--destructive); --color-accent-foreground: var(--accent-foreground); --color-accent: var(--accent); --color-muted-foreground: var(--muted-foreground); --color-muted: var(--muted); --color-secondary-foreground: var(--secondary-foreground); --color-secondary: var(--secondary); --color-primary-foreground: var(--primary-foreground); --color-primary: var(--primary); --color-popover-foreground: var(--popover-foreground); --color-popover: var(--popover); --color-card-foreground: var(--card-foreground); --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * .6); --radius-md: calc(var(--radius) * .8); --radius-lg: var(--radius); --radius-xl: calc(var(--radius) * 1.4); --radius-2xl: calc(var(--radius) * 1.8); --radius-3xl: calc(var(--radius) * 2.2); --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(.975 .007 80); --foreground: oklch(.18 .018 260); --card: oklch(1 0 0); --card-foreground: oklch(.18 .018 260); --popover: oklch(1 0 0); --popover-foreground: oklch(.18 .018 260);
+  --primary: oklch(.67 .19 43); --primary-foreground: oklch(.99 0 0); --secondary: oklch(.93 .025 75); --secondary-foreground: oklch(.25 .03 55); --muted: oklch(.945 .009 80); --muted-foreground: oklch(.48 .025 260); --accent: oklch(.9 .055 78); --accent-foreground: oklch(.28 .04 50); --destructive: oklch(.577 .245 27.325); --border: oklch(.88 .015 75); --input: oklch(.88 .015 75); --ring: oklch(.67 .19 43); --radius: .75rem;
+}
+
+.dark { --background: oklch(.15 .018 260); --foreground: oklch(.96 .01 80); --card: oklch(.2 .018 260); --card-foreground: oklch(.96 .01 80); --popover: oklch(.2 .018 260); --popover-foreground: oklch(.96 .01 80); --primary: oklch(.72 .18 48); --primary-foreground: oklch(.12 .015 260); --secondary: oklch(.28 .025 260); --secondary-foreground: oklch(.96 .01 80); --muted: oklch(.25 .018 260); --muted-foreground: oklch(.72 .02 80); --accent: oklch(.32 .06 55); --accent-foreground: oklch(.94 .03 75); --border: oklch(1 0 0 / 12%); --input: oklch(1 0 0 / 16%); --ring: oklch(.72 .18 48); }
+
+@layer base { * { @apply border-border outline-ring/50; } html { @apply font-sans; scroll-behavior: smooth; } body { @apply bg-background text-foreground; } button { cursor: pointer; } }
+
+.summary-panel { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; border:1px solid var(--border); background:var(--card); border-radius:1rem; padding:1rem; }
+.summary-panel > div { min-width:0; padding:.25rem .65rem; border-right:1px solid var(--border); }
+.summary-panel > div:last-child { border-right:0; }
+.summary-panel svg { width:1rem; color:var(--primary); margin-bottom:.45rem; }
+.summary-value { font-size:1.45rem; font-weight:900; letter-spacing:-.04em; line-height:1; }
+.summary-label { margin-top:.3rem; font-size:.68rem; color:var(--muted-foreground); white-space:nowrap; }
+
+.day-tabs { margin-bottom:1.5rem; height:auto; width:100%; justify-content:flex-start; gap:.25rem; overflow-x:auto; border-radius:1rem; background:var(--muted); padding:.4rem; }
+.day-tab { min-width:6.6rem; height:auto!important; padding:.7rem .9rem!important; display:flex!important; flex-direction:column; align-items:flex-start!important; gap:0!important; }
+.day-tab span { font-size:.9rem; font-weight:900; }
+.day-tab small { font-size:.58rem; font-weight:800; letter-spacing:.13em; opacity:.62; }
+.day-heading { display:grid; gap:1rem; margin:1.2rem 0 1.6rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border); }
+.day-heading > div p,.section-kicker { color:var(--primary); font-size:.7rem; font-weight:900; letter-spacing:.18em; }
+.day-heading h2,.recovery-section h2 { margin-top:.15rem; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.05; font-weight:900; letter-spacing:-.035em; }
+.day-heading > p { max-width:42rem; color:var(--muted-foreground); line-height:1.55; }
+@media(min-width:780px){.day-heading{grid-template-columns:1fr 1fr;align-items:end}.day-heading>p{justify-self:end}}
+
+.exercise-grid { display:grid; gap:1rem; }
+@media(min-width:900px){.exercise-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.exercise-card { display:grid; overflow:hidden; border:1px solid var(--border); border-radius:1rem; background:var(--card); transition:border-color .2s,opacity .2s; }
+@media(min-width:560px){.exercise-card{grid-template-columns:12.5rem minmax(0,1fr)}}
+.exercise-card.is-complete { border-color:color-mix(in oklch,var(--primary),transparent 30%); opacity:.72; }
+.exercise-body { padding:1.15rem; }
+.exercise-number { margin-bottom:.2rem; color:var(--primary); font-size:.62rem; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+.exercise-body h3 { font-size:1.05rem; font-weight:900; line-height:1.2; letter-spacing:-.02em; }
+.prescription { display:flex; flex-wrap:wrap; gap:.35rem; margin:.85rem 0; }
+.prescription span { border-radius:99px; background:var(--muted); padding:.3rem .52rem; font-size:.67rem; color:var(--muted-foreground); }
+.prescription b { color:var(--foreground); }
+.cue,.avoid { display:flex; align-items:flex-start; gap:.45rem; margin-top:.55rem; font-size:.73rem; line-height:1.45; }
+.cue svg,.avoid svg { margin-top:.12rem; width:.82rem; height:.82rem; flex:0 0 auto; }
+.cue svg { color:var(--primary); }.avoid { color:var(--muted-foreground); }
+.variant-dot { display:block; width:.36rem; height:.36rem; border-radius:99px; background:var(--border); }.variant-dot.active { width:1.1rem; background:var(--primary); }
+
+.demo { --skin:var(--foreground); position:relative; min-height:13rem; overflow:hidden; background:var(--muted); display:grid; place-items:center; }
+.demo::before { content:''; position:absolute; inset:auto 12% 1.6rem; height:1px; background:var(--border); }
+.figure { position:relative; width:6rem; height:9rem; transform-origin:50% 72%; }
+.figure span { position:absolute; display:block; background:var(--skin); border-radius:999px; }
+.head { width:1.35rem; height:1.35rem; left:2.3rem; top:.2rem; }
+.torso { width:1.05rem; height:3.4rem; left:2.45rem; top:1.6rem; border-radius:.65rem!important; }
+.arm,.forearm,.leg,.lower-leg { width:.38rem; transform-origin:50% .18rem; }
+.arm { height:2.45rem; top:1.82rem; }.arm-left { left:2.35rem; transform:rotate(30deg); }.arm-right { left:3.2rem; transform:rotate(-30deg); }
+.forearm { height:2.2rem; top:3.55rem; }.forearm-left { left:1.2rem; transform:rotate(-15deg); }.forearm-right { left:4.3rem; transform:rotate(15deg); }
+.leg { height:2.8rem; top:4.65rem; }.leg-left { left:2.25rem; transform:rotate(12deg); }.leg-right { left:3.35rem; transform:rotate(-12deg); }
+.lower-leg { height:2.6rem; top:6.85rem; }.lower-leg-left { left:1.7rem; transform:rotate(2deg); }.lower-leg-right { left:3.88rem; transform:rotate(-2deg); }
+.demo-tool { position:absolute; z-index:2; width:6.5rem; height:.35rem; border-radius:99px; background:var(--primary); }
+.demo-path { position:absolute; right:1rem; top:1rem; width:.45rem; height:3rem; border-right:1px dashed var(--primary); opacity:.5; }
+.demo-path::after { content:'↓'; position:absolute; left:-.27rem; bottom:-.7rem; color:var(--primary); font-size:.75rem; }
+.demo-label { position:absolute; left:.8rem; bottom:.6rem; display:flex; align-items:center; gap:.15rem; font-size:.52rem; font-weight:900; letter-spacing:.08em; color:var(--muted-foreground); }
+
+.demo-pull .demo-tool { top:1.3rem; animation:tool-vertical 2.4s ease-in-out infinite; }.demo-pull .arm,.demo-pull .forearm { animation:arms-vertical 2.4s ease-in-out infinite; }
+.demo-row .figure { transform:translateX(1.25rem); }.demo-row .demo-tool { width:2.4rem; right:1rem; top:5.1rem; animation:tool-row 2.4s ease-in-out infinite; }.demo-row .arm,.demo-row .forearm { animation:arms-row 2.4s ease-in-out infinite; }
+.demo-curl .demo-tool { width:2.7rem; top:7rem; animation:tool-curl 2.2s ease-in-out infinite; }.demo-curl .forearm { animation:forearm-curl 2.2s ease-in-out infinite; }
+.demo-raise .demo-tool { width:.65rem; height:.65rem; top:4.2rem; animation:tool-raise 2.3s ease-in-out infinite; }.demo-raise .arm,.demo-raise .forearm { animation:arms-raise 2.3s ease-in-out infinite; }
+.demo-press .demo-tool { top:2rem; width:5rem; animation:tool-press 2.3s ease-in-out infinite; }.demo-press .arm,.demo-press .forearm { animation:arms-press 2.3s ease-in-out infinite; }
+.demo-fly .demo-tool { display:none; }.demo-fly .arm,.demo-fly .forearm { animation:arms-fly 2.5s ease-in-out infinite; }
+.demo-squat .demo-tool { top:2rem; width:5rem; }.demo-squat .figure { animation:body-squat 2.5s ease-in-out infinite; }
+.demo-hinge .demo-tool { top:6rem; width:3.7rem; animation:tool-hinge 2.5s ease-in-out infinite; }.demo-hinge .figure { animation:body-hinge 2.5s ease-in-out infinite; }
+.demo-thrust .figure { transform:rotate(70deg) translate(1rem,-.6rem); animation:body-thrust 2.4s ease-in-out infinite; }.demo-thrust .demo-tool { top:6.2rem; width:3rem; animation:tool-thrust 2.4s ease-in-out infinite; }
+.demo-lunge .figure { animation:body-lunge 2.5s ease-in-out infinite; }.demo-knee .lower-leg-left,.demo-knee .lower-leg-right { animation:leg-curl 2.2s ease-in-out infinite; }
+.demo-hip .leg-left,.demo-hip .lower-leg-left { animation:leg-open-left 2.3s ease-in-out infinite; }.demo-hip .leg-right,.demo-hip .lower-leg-right { animation:leg-open-right 2.3s ease-in-out infinite; }
+.demo-calf .figure { animation:body-calf 1.9s ease-in-out infinite; }.demo-core .figure { animation:body-core 2.5s ease-in-out infinite; }.demo-core .demo-tool { display:none; }
+.demo-triceps .demo-tool { width:2.2rem; top:6rem; animation:tool-triceps 2.2s ease-in-out infinite; }.demo-triceps .forearm { animation:forearm-triceps 2.2s ease-in-out infinite; }
+.demo-shrug .demo-tool { width:7rem; top:6.5rem; }.demo-shrug .arm,.demo-shrug .forearm { animation:arms-shrug 1.9s ease-in-out infinite; }
+
+@keyframes tool-vertical{0%,100%{transform:translateY(0)}50%{transform:translateY(3.4rem)}}
+@keyframes arms-vertical{0%,100%{transform:translateY(-1.1rem)}50%{transform:translateY(1rem)}}
+@keyframes tool-row{0%,100%{transform:translateX(0)}50%{transform:translateX(-2.2rem)}}
+@keyframes arms-row{0%,100%{transform:rotate(-65deg) translateY(-1rem)}50%{transform:rotate(-25deg)}}
+@keyframes tool-curl{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.3rem)}}
+@keyframes forearm-curl{0%,100%{transform:rotate(8deg)}50%{transform:rotate(145deg)}}
+@keyframes tool-raise{0%,100%{transform:translateY(1.7rem)}50%{transform:translateY(-1.5rem)}}
+@keyframes arms-raise{0%,100%{transform:rotate(8deg)}50%{transform:rotate(82deg)}}
+@keyframes tool-press{0%,100%{transform:translateY(2.4rem)}50%{transform:translateY(-.6rem)}}
+@keyframes arms-press{0%,100%{transform:translateY(1rem)}50%{transform:translateY(-1.1rem)}}
+@keyframes arms-fly{0%,100%{transform:rotate(18deg)}50%{transform:rotate(78deg)}}
+@keyframes body-squat{0%,100%{transform:translateY(0)}50%{transform:translateY(2.6rem) scaleY(.84)}}
+@keyframes body-hinge{0%,100%{transform:rotate(0)}50%{transform:rotate(42deg) translate(1.2rem,.7rem)}}
+@keyframes tool-hinge{0%,100%{transform:translateY(0)}50%{transform:translateY(1.7rem)}}
+@keyframes body-thrust{0%,100%{transform:rotate(70deg) translate(1rem,-.6rem)}50%{transform:rotate(88deg) translate(1.4rem,-1.3rem)}}
+@keyframes tool-thrust{0%,100%{transform:translateY(1rem)}50%{transform:translateY(-.7rem)}}
+@keyframes body-lunge{0%,100%{transform:translateY(0)}50%{transform:translateY(2rem) scaleY(.88)}}
+@keyframes leg-curl{0%,100%{transform:rotate(0)}50%{transform:rotate(82deg)}}
+@keyframes leg-open-left{0%,100%{transform:rotate(8deg)}50%{transform:rotate(36deg)}}
+@keyframes leg-open-right{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-36deg)}}
+@keyframes body-calf{0%,100%{transform:translateY(.5rem)}50%{transform:translateY(-.35rem)}}
+@keyframes body-core{0%,100%{transform:rotate(0)}50%{transform:rotate(-26deg) translateY(.7rem)}}
+@keyframes tool-triceps{0%,100%{transform:translateY(-1.5rem)}50%{transform:translateY(1rem)}}
+@keyframes forearm-triceps{0%,100%{transform:rotate(130deg)}50%{transform:rotate(8deg)}}
+@keyframes arms-shrug{0%,100%{transform:translateY(.5rem)}50%{transform:translateY(-.35rem)}}
+
+.recovery-section { margin-top:4.5rem; padding:2rem 0; border-top:1px solid var(--border); display:grid; gap:1rem; }
+@media(min-width:900px){.recovery-section{grid-template-columns:1.2fr 1fr 1fr;align-items:stretch}}
+.recovery-card { display:flex; gap:1rem; padding:1.25rem; border:1px solid var(--border); border-radius:1rem; background:var(--card); }
+.recovery-day { flex:0 0 auto; display:grid; place-items:center; width:3rem; height:3rem; border-radius:.75rem; background:var(--foreground); color:var(--background); font-size:.7rem; font-weight:900; }
+.recovery-card h3,.feature-note h3 { font-weight:900; }.recovery-card p,.feature-note p { margin-top:.3rem; color:var(--muted-foreground); font-size:.8rem; line-height:1.5; }
+.notes-grid { display:grid; gap:1rem; margin:1rem 0 3rem; }
+@media(min-width:800px){.notes-grid{grid-template-columns:repeat(3,1fr)}}
+.feature-note { display:flex; align-items:flex-start; gap:.8rem; padding-top:1rem; border-top:2px solid var(--foreground); }.feature-note>svg { width:1.15rem; flex:0 0 auto; color:var(--primary); }
+footer { padding:1.5rem; border-top:1px solid var(--border); color:var(--muted-foreground); text-align:center; font-size:.7rem; letter-spacing:.06em; }
+
+@media(max-width:559px){.demo{min-height:10rem}.figure{transform:scale(.83)}.day-tabs{position:sticky;top:4.55rem;z-index:10}.summary-panel>div{padding:.15rem .35rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
