@@ -1,13 +1,8 @@
-'use client';
-
-import { useMemo, useState } from 'react';
 import {
-  Check, CheckCircle2, ChevronRight, Circle, Dumbbell, Flame,
-  HeartPulse, Info, RotateCcw, ShieldCheck, Sparkles, Timer, Zap,
+  CheckCircle2, Dumbbell, ExternalLink, Flame,
+  HeartPulse, Info, PlayCircle, ShieldCheck, Sparkles, Timer, Zap,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 type Motion = 'pull' | 'row' | 'curl' | 'raise' | 'press' | 'fly' | 'squat' | 'hinge' | 'thrust' | 'lunge' | 'knee' | 'hip' | 'calf' | 'core' | 'triceps' | 'shrug';
 type Exercise = { name: string; options: string[]; muscle: string; sets: string; reps: string; rest: string; motion: Motion; cue: string; avoid: string };
@@ -87,53 +82,75 @@ const days: Day[] = [
   },
 ];
 
-function MovementDemo({ motion, name }: { motion: Motion; name: string }) {
-  return (
-    <div className={`demo demo-${motion}`} role="img" aria-label={`Looping movement guide for ${name}`}>
-      <span className="demo-path" />
-      <span className="demo-tool" />
-      <div className="figure">
-        <span className="head" /><span className="torso" />
-        <span className="arm arm-left" /><span className="arm arm-right" />
-        <span className="forearm forearm-left" /><span className="forearm forearm-right" />
-        <span className="leg leg-left" /><span className="leg leg-right" />
-        <span className="lower-leg lower-leg-left" /><span className="lower-leg lower-leg-right" />
-      </div>
-      <span className="demo-label">START <ChevronRight className="size-3" /> FINISH</span>
-    </div>
-  );
-}
+const demoLinks: Record<string, { url: string; provider: string }> = {
+  'Wide-grip lat pulldown': { url: 'https://www.youtube.com/watch?v=CAwf7n6Luuc', provider: 'YouTube form tutorial' },
+  'Single-arm cable lat pulldown': { url: 'https://www.muscleandstrength.com/exercises/single-arm-lat-pulldown.html', provider: 'Muscle & Strength demo' },
+  'Neutral-grip seated row': { url: 'https://wger.de/media/exercise-video/512/fff4c294-93f0-4926-b3a2-bf59ad4afaa5.MOV', provider: 'Wger exercise video' },
+  'Straight-arm cable pulldown': { url: 'https://www.catalystathletics.com/exercise/907/Straight-Arm-Pulldown/', provider: 'Catalyst Athletics demo' },
+  'Chest-supported dumbbell row': { url: 'https://www.muscleandstrength.com/exercises/chest-supported-dumbbell-row.html', provider: 'Muscle & Strength demo' },
+  'Reverse pec-deck fly': { url: 'https://www.youtube.com/watch?v=dC7jhEk-29A', provider: 'YouTube form tutorial' },
+  'Incline dumbbell curl': { url: 'https://www.muscleandstrength.com/exercises/incline-dumbbell-curl.html', provider: 'Muscle & Strength demo' },
+  'Hammer curl': { url: 'https://wger.de/media/exercise-video/272/df069052-2173-4f24-855f-a0eebe729f24.MOV', provider: 'Wger exercise video' },
+  'Hanging knee raise': { url: 'https://support.runna.com/en/articles/6376285-hanging-knee-raise-exercise-tutorial', provider: 'Runna video tutorial' },
+  'Incline machine press': { url: 'https://www.muscleandstrength.com/exercises/hammer-strength-incline-bench-press.html', provider: 'Muscle & Strength demo' },
+  'Flat dumbbell press': { url: 'https://wger.de/media/exercise-video/75/080c799b-8afd-4130-8d72-9cef0cd79f54.MOV', provider: 'Wger exercise video' },
+  'Pec-deck fly': { url: 'https://www.muscleandstrength.com/exercises/pec-dec.html', provider: 'Muscle & Strength demo' },
+  'Seated dumbbell shoulder press': { url: 'https://wger.de/media/exercise-video/567/64f33c19-1d96-4b7c-af17-6c6a4941c614.MOV', provider: 'Wger exercise video' },
+  'Cable lateral raise': { url: 'https://www.muscleandstrength.com/exercises/one-arm-cable-lateral-raise.html', provider: 'Muscle & Strength demo' },
+  'Rope pressdown': { url: 'https://wger.de/media/exercise-video/659/1f2eb3b6-3185-429f-8330-26dc88f39aff.MOV', provider: 'Wger exercise video' },
+  'Overhead cable extension': { url: 'https://www.muscleandstrength.com/exercises/overhead-tricep-extension-rope-attachment.html', provider: 'Muscle & Strength demo' },
+  'Pallof press': { url: 'https://www.muscleandstrength.com/exercises/pallof-press.html', provider: 'Muscle & Strength demo' },
+  'Smith squat': { url: 'https://wger.de/media/exercise-video/341/0cbfeace-dda9-4166-8424-f51358e88a4f.MOV', provider: 'Wger exercise video' },
+  'Smith Romanian deadlift': { url: 'https://wger.de/media/exercise-video/507/307e7276-a14d-4ea0-b579-f5b0dbc6f5af.MOV', provider: 'Wger exercise video' },
+  'Hip-thrust machine': { url: 'https://wger.de/media/exercise-video/294/45bacf4b-1bb6-4d47-8bd1-9f00eddd4019.MOV', provider: 'Wger exercise video' },
+  'Bulgarian split squat': { url: 'https://www.muscleandstrength.com/exercises/bulgarian-split-squat.html', provider: 'Muscle & Strength demo' },
+  'Seated leg curl': { url: 'https://wger.de/media/exercise-video/366/43df4b79-d4c3-4fbf-bcb5-e0d825b84120.MOV', provider: 'Wger exercise video' },
+  'Leg extension': { url: 'https://www.muscleandstrength.com/exercises/leg-extension.html', provider: 'Muscle & Strength demo' },
+  'Hip abductor machine': { url: 'https://www.muscleandstrength.com/exercises/seated-hip-abduction.html', provider: 'Muscle & Strength demo' },
+  'Hip adductor machine': { url: 'https://wger.de/media/exercise-video/12/5148c579-5df2-4618-9a7b-a2e29ac4dd7d.MOV', provider: 'Wger exercise video' },
+  'Machine calf raise': { url: 'https://wger.de/media/exercise-video/590/a325ae2e-686b-4a1f-aff2-ba37fa3fa157.MOV', provider: 'Wger exercise video' },
+  'Neutral-grip lat pulldown': { url: 'https://www.muscleandstrength.com/exercises/neutral-grip-lat-pull-down.html', provider: 'Muscle & Strength demo' },
+  'Wide-grip machine row': { url: 'https://www.muscleandstrength.com/exercises/machine-row.html', provider: 'Muscle & Strength demo' },
+  'Single-arm cable row': { url: 'https://wger.de/media/exercise-video/349/9896d82e-d8b6-48af-bdd5-b8545dc523e9.MOV', provider: 'Wger exercise video' },
+  'Rope face pull': { url: 'https://wger.de/media/exercise-video/222/245a824b-cd39-45f2-b251-2c0b7efead0d.MOV', provider: 'Wger exercise video' },
+  'Cable rear-delt fly': { url: 'https://www.youtube.com/watch?v=dC7jhEk-29A', provider: 'YouTube form tutorial' },
+  'Cable Y-raise': { url: 'https://www.muscleandstrength.com/exercises/cable-y-raise.html', provider: 'Muscle & Strength demo' },
+  'Dumbbell shrug': { url: 'https://wger.de/media/exercise-video/570/bd1f14a3-9d2b-4ec0-b6b9-e82d739f7e60.MOV', provider: 'Wger exercise video' },
+  'Preacher curl': { url: 'https://wger.de/media/exercise-video/465/b64ca95b-c677-4f3b-bb50-f75edc81aa74.MOV', provider: 'Wger exercise video' },
+  'Cable curl': { url: 'https://wger.de/media/exercise-video/95/ab770931-47d3-44fd-aef0-ac7a64c3b794.MOV', provider: 'Wger exercise video' },
+  'Flat Smith press': { url: 'https://www.muscleandstrength.com/exercises/smith-machine-bench-press.html', provider: 'Muscle & Strength demo' },
+  'Incline dumbbell press': { url: 'https://wger.de/media/exercise-video/537/b9c937e9-daeb-42a9-be8e-7a77e368478c.MOV', provider: 'Wger exercise video' },
+  'Low-to-high cable fly': { url: 'https://www.muscleandstrength.com/exercises/low-cable-cross-over.html', provider: 'Muscle & Strength demo' },
+  'Machine shoulder press': { url: 'https://wger.de/media/exercise-video/543/dbfd396b-1aab-4a64-a50b-2c31ff0a2cf7.MOV', provider: 'Wger exercise video' },
+  'Leaning cable lateral raise': { url: 'https://www.muscleandstrength.com/exercises/one-arm-cable-lateral-raise.html', provider: 'Muscle & Strength demo' },
+  'Close-grip Smith press': { url: 'https://www.muscleandstrength.com/exercises/smith-machine-close-grip-bench-press.html', provider: 'Muscle & Strength demo' },
+  'Single-arm cable extension': { url: 'https://wger.de/media/exercise-video/803/99e0001f-217a-4b11-823c-014d24a5415e.MOV', provider: 'Wger exercise video' },
+  'Ab-wheel rollout': { url: 'https://www.muscleandstrength.com/exercises/ab-wheel-rollout.html', provider: 'Muscle & Strength demo' },
+};
 
-function ExerciseCard({ exercise, index, dayId, completed, onToggle }: { exercise: Exercise; index: number; dayId: string; completed: boolean; onToggle: () => void }) {
-  const [variant, setVariant] = useState(0);
-  const names = [exercise.name, ...exercise.options];
-  const activeName = names[variant];
-  const rotate = () => setVariant((variant + 1) % names.length);
+function ExerciseCard({ exercise, index }: { exercise: Exercise; index: number }) {
+  const demo = demoLinks[exercise.name];
   return (
-    <article className={`exercise-card ${completed ? 'is-complete' : ''}`}>
-      <MovementDemo motion={exercise.motion} name={activeName} />
+    <article className="exercise-card">
+      <a className="real-demo" href={demo.url} target="_blank" rel="noreferrer" aria-label={`Open real demonstration for ${exercise.name}`}>
+        <PlayCircle />
+        <span><b>Watch real demonstration</b><small>{demo.provider}</small></span>
+        <ExternalLink />
+      </a>
       <div className="exercise-body">
-        <div className="mb-3 flex items-start justify-between gap-3">
-          <div><p className="exercise-number">{String(index + 1).padStart(2, '0')} / {exercise.muscle}</p><h3>{activeName}</h3></div>
-          <Button variant={completed ? 'default' : 'outline'} size="icon" aria-label={completed ? `Mark ${activeName} incomplete` : `Mark ${activeName} complete`} onClick={onToggle}>{completed ? <Check /> : <Circle />}</Button>
+        <div className="mb-3">
+          <div><p className="exercise-number">{String(index + 1).padStart(2, '0')} / {exercise.muscle}</p><h3>{exercise.name}</h3></div>
         </div>
         <div className="prescription"><span><b>{exercise.sets}</b> sets</span><span><b>{exercise.reps}</b> reps</span><span><b>{exercise.rest}</b> rest</span></div>
         <p className="cue"><CheckCircle2 /> {exercise.cue}</p>
         <p className="avoid"><Info /> {exercise.avoid}</p>
-        <Button variant="ghost" size="sm" className="mt-4 px-0 text-primary hover:bg-transparent hover:text-primary/80" onClick={rotate} aria-label={`Change variation for exercise ${index + 1} on ${dayId}`}><RotateCcw /> Change variation</Button>
-        <div className="mt-2 flex flex-wrap gap-1.5" aria-label="Available variations">{names.map((name, i) => <span key={name} className={`variant-dot ${i === variant ? 'active' : ''}`} title={name} />)}</div>
+        <div className="alternatives"><b>Other options:</b> {exercise.options.join(' · ')}</div>
       </div>
     </article>
   );
 }
 
 export default function Home() {
-  const [completed, setCompleted] = useState<Record<string, boolean>>({});
-  const [activeDay, setActiveDay] = useState('tue');
-  const current = useMemo(() => days.find((d) => d.id === activeDay) ?? days[0], [activeDay]);
-  const done = current.exercises.filter((_, i) => completed[`${current.id}-${i}`]).length;
-  const toggle = (key: string) => setCompleted((value) => ({ ...value, [key]: !value[key] }));
-
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
@@ -147,23 +164,21 @@ export default function Home() {
         <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_390px] lg:items-end">
           <div><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your training week</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Build width. Stand taller. Stay fast.</h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Two direct biceps exercises on both pull days. Two hard sets per movement. Cricket Sunday, full recovery Monday.</p></div>
           <div className="summary-panel">
-            <div><Flame /><p className="summary-value">{current.exercises.length * 2}</p><p className="summary-label">working sets</p></div>
-            <div><Timer /><p className="summary-value">{current.time.replace(' min', '')}</p><p className="summary-label">minutes</p></div>
-            <div><Zap /><p className="summary-value">{done}/{current.exercises.length}</p><p className="summary-label">completed</p></div>
+            <div><Flame /><p className="summary-value">88</p><p className="summary-label">weekly sets</p></div>
+            <div><Timer /><p className="summary-value">5</p><p className="summary-label">gym days</p></div>
+            <div><Zap /><p className="summary-value">4</p><p className="summary-label">biceps moves</p></div>
           </div>
         </div>
 
-        <Tabs value={activeDay} onValueChange={setActiveDay}>
-          <TabsList className="day-tabs">
-            {days.map((day) => <TabsTrigger key={day.id} value={day.id} className="day-tab"><span>{day.short}</span><small>{day.eyebrow}</small></TabsTrigger>)}
-          </TabsList>
-          {days.map((day) => (
-            <TabsContent key={day.id} value={day.id}>
+        <nav className="day-tabs" aria-label="Jump to workout day">
+          {days.map((day) => <a key={day.id} href={`#${day.id}`} className="day-tab"><span>{day.short}</span><small>{day.eyebrow}</small></a>)}
+        </nav>
+        {days.map((day) => (
+            <section key={day.id} id={day.id} className="workout-day scroll-mt-32">
               <div className="day-heading"><div><p>{day.eyebrow}</p><h2>{day.title}</h2></div><p>{day.focus}</p></div>
-              <div className="exercise-grid">{day.exercises.map((exercise, i) => <ExerciseCard key={`${day.id}-${exercise.name}`} exercise={exercise} index={i} dayId={day.id} completed={!!completed[`${day.id}-${i}`]} onToggle={() => toggle(`${day.id}-${i}`)} />)}</div>
-            </TabsContent>
-          ))}
-        </Tabs>
+              <div className="exercise-grid">{day.exercises.map((exercise, i) => <ExerciseCard key={`${day.id}-${exercise.name}`} exercise={exercise} index={i} />)}</div>
+            </section>
+        ))}
 
         <section className="recovery-section">
           <div><p className="section-kicker">THE OTHER TWO DAYS</p><h2>Recover like it is part of training.</h2></div>
