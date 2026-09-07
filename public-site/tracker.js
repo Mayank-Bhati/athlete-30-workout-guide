@@ -89,6 +89,7 @@
     });
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize);
-  else initialize();
+  const startAfterHydration = () => window.setTimeout(initialize, 120);
+  if (document.readyState === 'complete') startAfterHydration();
+  else window.addEventListener('load', startAfterHydration, { once: true });
 })();
