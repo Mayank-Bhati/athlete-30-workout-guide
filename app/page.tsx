@@ -138,14 +138,50 @@ const demoLinks: Record<string, { url: string; provider: string }> = {
   'Cross-body hammer curl': { url: 'https://wger.de/media/exercise-video/272/df069052-2173-4f24-855f-a0eebe729f24.MOV', provider: 'Wger exercise video' },
 };
 
+const exerciseImages: Record<string, string> = {
+  'Seated leg curl': './exercises/seated-leg-curl.jpg',
+  'Smith squat': './exercises/smith-squat.jpg',
+  'Smith Romanian deadlift': './exercises/smith-romanian-deadlift.jpg',
+  'Hip-thrust machine': './exercises/hip-thrust-machine.jpg',
+  'Leg extension': './exercises/leg-extension.jpg',
+  'Hip adductor machine': './exercises/hip-adductor-machine.jpg',
+  'Hip abductor machine': './exercises/hip-abductor.jpg',
+  'Machine calf raise': './exercises/machine-calf-raise.jpg',
+  'Incline machine press': './exercises/incline-machine-press.jpg',
+  'Flat Smith press': './exercises/flat-smith-press.jpg',
+  'Seated cable fly': './exercises/seated-cable-fly.jpg',
+  'Machine shoulder press': './exercises/machine-shoulder-press.jpg',
+  'High-cable lateral raise': './exercises/high-cable-lateral-raise.jpg',
+  'Cross-body cable Y-raise': './exercises/cross-body-cable-y-raise.jpg',
+  'Overhead cable extension': './exercises/overhead-cable-extension.jpg',
+  'Rope pressdown': './exercises/rope-pressdown.jpg',
+  'Neutral-grip lat pulldown': './exercises/neutral-grip-lat-pulldown.jpg',
+  'Wide-grip machine row': './exercises/wide-grip-machine-row.jpg',
+  'Neutral-grip seated row': './exercises/neutral-grip-seated-row.jpg',
+  'Supinated machine row': './exercises/supinated-machine-row.jpg',
+  'Single-arm cable lat pulldown': './exercises/single-arm-cable-lat-pulldown.jpg',
+  'Bottom-half dumbbell pullover': './exercises/bottom-half-dumbbell-pullover.jpg',
+  'Rope face pull': './exercises/rope-face-pull.jpg',
+  'Dumbbell shrug': './exercises/dumbbell-shrug.jpg',
+  'EZ-bar curl': './exercises/ez-bar-curl.jpg',
+  'Preacher curl': './exercises/preacher-curl.jpg',
+  'Long-stride dumbbell walking lunge': './exercises/long-stride-dumbbell-walking-lunge.jpg',
+  'Leg press': './exercises/leg-press.jpg',
+  'Reverse pec-deck fly': './exercises/reverse-pec-deck-fly.jpg',
+  'Bayesian cable curl': './exercises/bayesian-cable-curl.jpg',
+  'Cross-body hammer curl': './exercises/cross-body-hammer-curl.jpg',
+};
+
 function ExerciseCard({ exercise, index }: { exercise: Exercise; index: number }) {
   const demo = demoLinks[exercise.name];
   return (
     <article className="exercise-card">
       <a className="real-demo" href={demo.url} target="_blank" rel="noreferrer" aria-label={`Open real demonstration for ${exercise.name}`}>
-        <PlayCircle />
-        <span><b>Watch real demonstration</b><small>{demo.provider}</small></span>
-        <ExternalLink />
+        <img src={exerciseImages[exercise.name]} alt={`${exercise.name} demonstration`} loading="lazy" width="640" height="480" />
+        <span className="media-scrim" aria-hidden="true" />
+        <span className="play-button"><PlayCircle /></span>
+        <span className="watch-copy"><b>Watch technique</b><small>{demo.provider}</small></span>
+        <ExternalLink className="external-icon" />
       </a>
       <div className="exercise-body">
         <div className="mb-3">
@@ -162,17 +198,17 @@ function ExerciseCard({ exercise, index }: { exercise: Exercise; index: number }
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
+    <main className="site-main min-h-screen bg-background text-foreground">
+      <header className="site-header sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground"><Dumbbell /></span><div><p className="font-heading text-lg font-black tracking-tight">ATHLETE 30</p><p className="hidden text-xs text-muted-foreground sm:block">Five-day muscle & posture plan</p></div></div>
           <Badge className="h-7 bg-accent px-3 text-accent-foreground">Month 1 plan</Badge>
         </div>
       </header>
 
-      <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
-        <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_390px] lg:items-end">
-          <div><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your training week</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Build width. Stand taller. Stay fast.</h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Two lower sessions, two complete upper-body exposures and four direct biceps movements. Cricket Sunday, full recovery Monday. Abs stay in your separate morning routine.</p></div>
+      <section className="site-shell mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
+        <div className="hero mb-8 grid gap-6 lg:grid-cols-[1fr_390px] lg:items-end">
+          <div className="hero-copy"><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your training week</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Build width. <span>Stand taller.</span> Stay fast.</h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Two lower sessions, two complete upper-body exposures and four direct biceps movements. Cricket Sunday, full recovery Monday. Abs stay in your separate morning routine.</p></div>
           <div className="summary-panel">
             <div><Flame /><p className="summary-value">86</p><p className="summary-label">weekly sets</p></div>
             <div><Timer /><p className="summary-value">5</p><p className="summary-label">gym days</p></div>
