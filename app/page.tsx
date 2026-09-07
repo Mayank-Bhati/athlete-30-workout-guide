@@ -208,24 +208,25 @@ export default function Home() {
         <section className="tracker-panel" aria-live="polite">
           <div className="next-workout-card">
             <p>NEXT WORKOUT</p>
-            <h2 data-next-workout>Pull</h2>
-            <span data-next-detail>Next in sequence after Push.</span>
-            <a href="#session-2" data-next-link>Jump to workout <span aria-hidden="true">↓</span></a>
+            <h2 data-next-workout>Push</h2>
+            <span data-next-detail>Start the week with Monday Push.</span>
+            <a href="#session-1" data-next-link>Jump to workout <span aria-hidden="true">↓</span></a>
           </div>
-          <div className="last-workout-card">
+          <div className="last-workout-card is-empty" data-last-workout-card>
             <span className="status-dot" aria-hidden="true" />
-            <div><p>LAST COMPLETED</p><h3 data-last-workout>Push · yesterday</h3><span>Saved on this device. Mark any workout below to update it.</span></div>
+            <div><p>LAST COMPLETED</p><h3 data-last-workout>No workout marked</h3><span data-last-detail>Mark a workout below after you finish it.</span></div>
+            <button type="button" className="clear-workout" data-clear-workout disabled>Clear</button>
           </div>
         </section>
 
         <nav className="day-tabs" aria-label="Jump to workout cycle step">
           {cycleSteps.map((step) => step.kind === 'workout'
-            ? <a key={step.day.id} href={`#${step.day.id}`} data-nav-workout={step.day.id} className={`day-tab${step.day.id === 'session-1' ? ' is-last-completed' : ''}`}><span>{step.day.short}</span><small>{step.day.eyebrow.split(' · ')[1]}</small></a>
+            ? <a key={step.day.id} href={`#${step.day.id}`} data-nav-workout={step.day.id} className="day-tab"><span>{step.day.short}</span><small>{step.day.eyebrow.split(' · ')[1]}</small></a>
             : <a key={step.id} href={`#${step.id}`} className="day-tab cycle-rest-tab"><span>{step.short}</span><small>{step.eyebrow.split(' · ')[1]}</small></a>)}
         </nav>
         {cycleSteps.map((step) => step.kind === 'workout' ? (
-          <section key={step.day.id} id={step.day.id} data-workout-id={step.day.id} data-workout-name={step.day.eyebrow.split(' · ')[1]} className={`workout-day scroll-mt-32${step.day.id === 'session-1' ? ' is-last-completed' : ''}`}>
-            <div className="day-heading"><div><p>{step.day.eyebrow}</p><h2>{step.day.title}</h2><span className="session-time"><Timer /> {step.day.time}</span></div><div className="day-summary"><p>{step.day.focus}</p><button type="button" className={`mark-complete${step.day.id === 'session-1' ? ' is-complete' : ''}`} data-mark-workout={step.day.id} aria-pressed={step.day.id === 'session-1'}><CheckCircle2 /><span>{step.day.id === 'session-1' ? 'Completed last time' : 'Mark as last completed'}</span></button></div></div>
+          <section key={step.day.id} id={step.day.id} data-workout-id={step.day.id} data-workout-name={step.day.eyebrow.split(' · ')[1]} className="workout-day scroll-mt-32">
+            <div className="day-heading"><div><p>{step.day.eyebrow}</p><h2>{step.day.title}</h2><span className="session-time"><Timer /> {step.day.time}</span></div><div className="day-summary"><p>{step.day.focus}</p><button type="button" className="mark-complete" data-mark-workout={step.day.id} aria-pressed={false}><CheckCircle2 /><span>Mark as last completed</span></button></div></div>
             <div className="exercise-grid">{step.day.exercises.map((exercise, i) => <ExerciseCard key={`${step.day.id}-${exercise.name}`} exercise={exercise} index={i} />)}</div>
           </section>
         ) : (

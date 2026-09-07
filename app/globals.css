@@ -161,6 +161,13 @@ footer { padding:1.5rem; border-top:1px solid var(--border); color:var(--muted-f
 .last-workout-card .status-dot { width:.72rem; height:.72rem; flex:0 0 auto; border-radius:50%; background:oklch(.64 .23 27); box-shadow:0 0 0 .35rem oklch(.64 .23 27 / .13),0 0 24px oklch(.64 .23 27 / .5); }
 .last-workout-card h3 { margin:.2rem 0; color:oklch(.88 .08 35); font-size:1.05rem; font-weight:950; }
 .last-workout-card div > span { color:oklch(.66 .015 75); font-size:.7rem; line-height:1.4; }
+.last-workout-card > div { min-width:0; flex:1; }
+.last-workout-card.is-empty { border-color:oklch(1 0 0 / .1); background:linear-gradient(135deg,oklch(.22 .018 255),oklch(.17 .018 255)); }
+.last-workout-card.is-empty .status-dot { background:oklch(.5 .012 75); box-shadow:0 0 0 .35rem oklch(.5 .012 75 / .1); }
+.last-workout-card.is-empty h3 { color:oklch(.8 .012 75); }
+.clear-workout { flex:0 0 auto; padding:.45rem .6rem; border:1px solid oklch(.78 .12 35 / .35); border-radius:.55rem; background:oklch(.58 .2 27 / .2); color:oklch(.9 .07 35); font-size:.64rem; font-weight:900; transition:background .2s,border-color .2s,opacity .2s; }
+.clear-workout:hover:not(:disabled) { border-color:oklch(.72 .18 32 / .65); background:oklch(.58 .2 27 / .34); }
+.clear-workout:disabled { opacity:0; pointer-events:none; }
 .day-tabs { position:sticky; top:4.7rem; z-index:12; margin:0 0 2.5rem; border:1px solid oklch(1 0 0 / .09); background:oklch(.13 .018 255 / .9); box-shadow:0 14px 38px oklch(.05 .015 255 / .35); backdrop-filter:blur(16px); scrollbar-width:none; }
 .day-tabs::-webkit-scrollbar { display:none; }
 .day-tab { border-radius:.72rem; color:oklch(.76 .012 75); text-decoration:none; transition:background .2s,color .2s,transform .2s; }
