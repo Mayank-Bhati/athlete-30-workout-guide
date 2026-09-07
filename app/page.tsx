@@ -7,12 +7,13 @@ import { Badge } from '@/components/ui/badge';
 type Motion = 'pull' | 'row' | 'curl' | 'raise' | 'press' | 'fly' | 'squat' | 'hinge' | 'thrust' | 'lunge' | 'knee' | 'hip' | 'calf' | 'core' | 'triceps' | 'shrug';
 type Exercise = { name: string; options: string[]; muscle: string; sets: string; reps: string; rest: string; motion: Motion; cue: string; avoid: string };
 type Day = { id: string; short: string; eyebrow: string; title: string; focus: string; time: string; exercises: Exercise[] };
+type CycleStep = { kind: 'workout'; day: Day } | { kind: 'recovery'; id: string; short: string; eyebrow: string; title: string; focus: string };
 
 const ex = (name: string, options: string[], muscle: string, reps: string, rest: string, motion: Motion, cue: string, avoid: string, sets = '2'): Exercise => ({ name, options, muscle, sets, reps, rest, motion, cue, avoid });
 
 const days: Day[] = [
   {
-    id: 'tue', short: 'Tue', eyebrow: 'LOWER A', title: 'Strength + posterior chain', focus: 'Your heavier lower session: deep squatting, hip hinging and glute strength with four full days before cricket.', time: '65 min',
+    id: 'session-1', short: '01', eyebrow: 'SESSION 1 · LOWER A', title: 'Strength + posterior chain', focus: 'Your heavier lower session: deep squatting, hip hinging and glute strength. Start the cycle here whenever you are ready.', time: '65 min',
     exercises: [
       ex('Seated leg curl', ['Lying leg curl', 'Single-leg curl'], 'Hamstrings', '10-15', '75 sec', 'knee', 'Curl smoothly and squeeze without lifting the hips.', 'Do not let the stack crash down.'),
       ex('Smith squat', ['Leg press', 'Smith box squat'], 'Quads + glutes', '6-10', '2-3 min', 'squat', 'Use the deepest controlled range you can own; brace and drive through mid-foot.', 'Do not let your knees collapse inward or your pelvis tuck sharply.'),
@@ -25,7 +26,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'wed', short: 'Wed', eyebrow: 'PUSH', title: 'Chest + shoulders + triceps', focus: 'Pressing strength, upper-chest fullness, shoulder width and four direct working sets for triceps.', time: '60 min',
+    id: 'session-2', short: '02', eyebrow: 'SESSION 2 · PUSH', title: 'Chest + shoulders + triceps', focus: 'Pressing strength, upper-chest fullness, shoulder width and four direct working sets for triceps.', time: '60 min',
     exercises: [
       ex('Incline machine press', ['Smith incline press', 'Incline dumbbell press'], 'Upper chest', '6-10', '90 sec', 'press', 'Set a moderate incline; press up and slightly inward.', 'Do not flare elbows straight sideways.'),
       ex('Flat Smith press', ['Flat dumbbell press', 'Flat machine press'], 'Chest', '6-10', '2 min', 'press', 'Plant your feet and lower the bar toward mid-chest with stacked wrists.', 'Do not bounce the bar or shorten the bottom range.'),
@@ -38,7 +39,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'thu', short: 'Thu', eyebrow: 'PULL', title: 'Lats + mid-back + traps + biceps', focus: 'Your V-taper and posture day, with three rowing grips, direct trap work and two biceps movements.', time: '70 min',
+    id: 'session-3', short: '03', eyebrow: 'SESSION 3 · PULL', title: 'Lats + mid-back + traps + biceps', focus: 'Your V-taper and posture session, with three rowing grips, direct trap work and two biceps movements.', time: '70 min',
     exercises: [
       ex('Neutral-grip lat pulldown', ['Medium overhand pulldown', 'Assisted pull-up'], 'Lats', '6-10', '2 min', 'pull', 'Keep your chest tall and drive elbows down toward your ribs.', 'Do not swing or pull behind your neck.'),
       ex('Wide-grip machine row', ['Chest-supported high row', 'Wide cable row'], 'Upper + mid-back', '8-12', '90 sec', 'row', 'Let the shoulder blades reach, then row toward the upper ribs.', 'Do not jut your head forward.', '1'),
@@ -53,7 +54,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'fri', short: 'Fri', eyebrow: 'LOWER B', title: 'Hips + moderate legs', focus: 'A cricket-friendly lower session: glute priority, moderate loads and every set stopped with about three reps in reserve.', time: '60 min',
+    id: 'session-4', short: '04', eyebrow: 'SESSION 4 · LOWER B', title: 'Hips + moderate legs', focus: 'A cricket-friendly lower session: glute priority, moderate loads and every set stopped with about three reps in reserve.', time: '60 min',
     exercises: [
       ex('Hip-thrust machine', ['Smith hip thrust', 'Dumbbell hip thrust'], 'Glutes', '8-12', '2 min', 'thrust', 'Pause at full hip extension with ribs down and a slight pelvic tuck.', 'Do not finish by hyperextending your lower back.'),
       ex('Long-stride dumbbell walking lunge', ['Reverse dumbbell lunge', 'Smith split squat'], 'Glutes + quads', '8-10 / side', '90 sec', 'lunge', 'Take a long stride, keep the front heel grounded and push through it.', 'Do not rush or push off the back foot.'),
@@ -66,7 +67,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'sat', short: 'Sat', eyebrow: 'UPPER', title: 'Physique-priority upper body', focus: 'A complete upper session for chest, lat width, mid-back, shoulders, traps, triceps and two more biceps movements.', time: '70 min',
+    id: 'session-5', short: '05', eyebrow: 'SESSION 5 · UPPER', title: 'Physique-priority upper body', focus: 'A complete upper session for chest, lat width, mid-back, shoulders, traps, triceps and two more biceps movements.', time: '70 min',
     exercises: [
       ex('Incline machine press', ['Incline Smith press', 'Incline dumbbell press'], 'Upper chest', '6-10', '2 min', 'press', 'Use a low-to-moderate incline and control the descent.', 'Do not turn it into a vertical shoulder press.'),
       ex('Seated cable fly', ['Pec-deck fly', 'Single-arm cable fly'], 'Chest', '10-15', '75 sec', 'fly', 'Bring your upper arms together in a controlled arc.', 'Do not force an excessive shoulder stretch.'),
@@ -82,60 +83,47 @@ const days: Day[] = [
   },
 ];
 
+const cycleSteps: CycleStep[] = [
+  { kind: 'workout', day: days[0] },
+  { kind: 'workout', day: days[1] },
+  { kind: 'recovery', id: 'recovery-checkpoint', short: 'REST', eyebrow: 'RECOVERY CHECKPOINT', title: 'Recover before you pull.', focus: 'Take a full rest day here. Easy walking and gentle mobility are fine; then continue with Session 3.' },
+  { kind: 'workout', day: days[2] },
+  { kind: 'workout', day: days[3] },
+  { kind: 'workout', day: days[4] },
+];
+
 const demoLinks: Record<string, { url: string; provider: string }> = {
-  'Wide-grip lat pulldown': { url: 'https://www.youtube.com/watch?v=CAwf7n6Luuc', provider: 'YouTube form tutorial' },
-  'Single-arm cable lat pulldown': { url: 'https://www.youtube.com/watch?v=8zA8DjHRaq0', provider: 'YouTube form tutorial' },
-  'Neutral-grip seated row': { url: 'https://wger.de/media/exercise-video/512/fff4c294-93f0-4926-b3a2-bf59ad4afaa5.MOV', provider: 'Wger exercise video' },
-  'Straight-arm cable pulldown': { url: 'https://www.catalystathletics.com/exercise/907/Straight-Arm-Pulldown/', provider: 'Catalyst Athletics demo' },
-  'Chest-supported dumbbell row': { url: 'https://www.youtube.com/watch?v=_b6ch2nIchk', provider: 'YouTube form tutorial' },
-  'Reverse pec-deck fly': { url: 'https://www.youtube.com/watch?v=dC7jhEk-29A', provider: 'YouTube form tutorial' },
-  'Incline dumbbell curl': { url: 'https://www.youtube.com/watch?v=1gCfaEWk_Ds', provider: 'YouTube form tutorial' },
-  'Hammer curl': { url: 'https://wger.de/media/exercise-video/272/df069052-2173-4f24-855f-a0eebe729f24.MOV', provider: 'Wger exercise video' },
-  'Hanging knee raise': { url: 'https://support.runna.com/en/articles/6376285-hanging-knee-raise-exercise-tutorial', provider: 'Runna video tutorial' },
-  'Incline machine press': { url: 'https://www.youtube.com/watch?v=i3e4CG5tnfs', provider: 'YouTube form tutorial' },
-  'Flat dumbbell press': { url: 'https://wger.de/media/exercise-video/75/080c799b-8afd-4130-8d72-9cef0cd79f54.MOV', provider: 'Wger exercise video' },
-  'Pec-deck fly': { url: 'https://www.youtube.com/watch?v=g3T7LsEeDWQ', provider: 'YouTube form tutorial' },
-  'Seated dumbbell shoulder press': { url: 'https://wger.de/media/exercise-video/567/64f33c19-1d96-4b7c-af17-6c6a4941c614.MOV', provider: 'Wger exercise video' },
-  'Cable lateral raise': { url: 'https://www.youtube.com/watch?v=C64pUMkv0jQ', provider: 'YouTube form tutorial' },
-  'Rope pressdown': { url: 'https://wger.de/media/exercise-video/659/1f2eb3b6-3185-429f-8330-26dc88f39aff.MOV', provider: 'Wger exercise video' },
-  'Overhead cable extension': { url: 'https://www.youtube.com/watch?v=mRozZKkGIfg', provider: 'YouTube form tutorial' },
-  'Pallof press': { url: 'https://www.youtube.com/watch?v=axgv7H_VQOo', provider: 'YouTube form tutorial' },
-  'Smith squat': { url: 'https://wger.de/media/exercise-video/341/0cbfeace-dda9-4166-8424-f51358e88a4f.MOV', provider: 'Wger exercise video' },
-  'Smith Romanian deadlift': { url: 'https://wger.de/media/exercise-video/507/307e7276-a14d-4ea0-b579-f5b0dbc6f5af.MOV', provider: 'Wger exercise video' },
-  'Hip-thrust machine': { url: 'https://wger.de/media/exercise-video/294/45bacf4b-1bb6-4d47-8bd1-9f00eddd4019.MOV', provider: 'Wger exercise video' },
-  'Bulgarian split squat': { url: 'https://www.youtube.com/watch?v=-4LVK1crLSw', provider: 'YouTube form tutorial' },
-  'Seated leg curl': { url: 'https://wger.de/media/exercise-video/366/43df4b79-d4c3-4fbf-bcb5-e0d825b84120.MOV', provider: 'Wger exercise video' },
-  'Leg extension': { url: 'https://www.youtube.com/watch?v=qOONjLjl8_Y', provider: 'YouTube exercise video' },
-  'Hip abductor machine': { url: 'https://www.youtube.com/watch?v=wrkc297otlA', provider: 'YouTube exercise video' },
-  'Hip adductor machine': { url: 'https://wger.de/media/exercise-video/12/5148c579-5df2-4618-9a7b-a2e29ac4dd7d.MOV', provider: 'Wger exercise video' },
-  'Machine calf raise': { url: 'https://wger.de/media/exercise-video/590/a325ae2e-686b-4a1f-aff2-ba37fa3fa157.MOV', provider: 'Wger exercise video' },
-  'Neutral-grip lat pulldown': { url: 'https://www.youtube.com/watch?v=MY6Pe1Vq8WY', provider: 'YouTube form tutorial' },
-  'Wide-grip machine row': { url: 'https://www.youtube.com/watch?v=ef0_Q9vomyQ', provider: 'YouTube form tutorial' },
-  'Single-arm cable row': { url: 'https://wger.de/media/exercise-video/349/9896d82e-d8b6-48af-bdd5-b8545dc523e9.MOV', provider: 'Wger exercise video' },
-  'Rope face pull': { url: 'https://wger.de/media/exercise-video/222/245a824b-cd39-45f2-b251-2c0b7efead0d.MOV', provider: 'Wger exercise video' },
-  'Cable rear-delt fly': { url: 'https://www.youtube.com/watch?v=dC7jhEk-29A', provider: 'YouTube form tutorial' },
-  'Cable Y-raise': { url: 'https://www.youtube.com/watch?v=NBkMIWWkIKQ', provider: 'YouTube form tutorial' },
-  'Dumbbell shrug': { url: 'https://wger.de/media/exercise-video/570/bd1f14a3-9d2b-4ec0-b6b9-e82d739f7e60.MOV', provider: 'Wger exercise video' },
-  'Preacher curl': { url: 'https://wger.de/media/exercise-video/465/b64ca95b-c677-4f3b-bb50-f75edc81aa74.MOV', provider: 'Wger exercise video' },
-  'Cable curl': { url: 'https://wger.de/media/exercise-video/95/ab770931-47d3-44fd-aef0-ac7a64c3b794.MOV', provider: 'Wger exercise video' },
-  'Flat Smith press': { url: 'https://www.youtube.com/watch?v=2TBOciYPzkk', provider: 'YouTube form tutorial' },
-  'Incline dumbbell press': { url: 'https://wger.de/media/exercise-video/537/b9c937e9-daeb-42a9-be8e-7a77e368478c.MOV', provider: 'Wger exercise video' },
-  'Low-to-high cable fly': { url: 'https://www.youtube.com/watch?v=KFl3Re5UbPo', provider: 'YouTube form tutorial' },
-  'Machine shoulder press': { url: 'https://wger.de/media/exercise-video/543/dbfd396b-1aab-4a64-a50b-2c31ff0a2cf7.MOV', provider: 'Wger exercise video' },
-  'Leaning cable lateral raise': { url: 'https://www.youtube.com/watch?v=v45w8UM43IY', provider: 'YouTube form tutorial' },
-  'Close-grip Smith press': { url: 'https://www.youtube.com/watch?v=z8UWdGwtzRM', provider: 'YouTube form tutorial' },
-  'Single-arm cable extension': { url: 'https://wger.de/media/exercise-video/803/99e0001f-217a-4b11-823c-014d24a5415e.MOV', provider: 'Wger exercise video' },
-  'Ab-wheel rollout': { url: 'https://www.youtube.com/watch?v=nCh8VfWY5_g', provider: 'YouTube form tutorial' },
-  'Seated cable fly': { url: 'https://www.youtube.com/watch?v=928aRhhPP8I&t=164s', provider: 'Routine video demonstration' },
-  'High-cable lateral raise': { url: 'https://www.youtube.com/watch?v=928aRhhPP8I&t=414s', provider: 'Routine video demonstration' },
-  'Cross-body cable Y-raise': { url: 'https://www.youtube.com/watch?v=c3pbe3qzatQ&t=492s', provider: 'Routine video demonstration' },
-  'Supinated machine row': { url: 'https://www.youtube.com/watch?v=spKGN0XzErU&t=307s', provider: 'Routine video demonstration' },
-  'Bottom-half dumbbell pullover': { url: 'https://www.youtube.com/watch?v=spKGN0XzErU&t=381s', provider: 'Routine video demonstration' },
-  'EZ-bar curl': { url: 'https://www.youtube.com/watch?v=spKGN0XzErU&t=563s', provider: 'Routine video demonstration' },
-  'Long-stride dumbbell walking lunge': { url: 'https://www.youtube.com/watch?v=H6mRkx1x77k&t=305s', provider: 'Routine video demonstration' },
-  'Leg press': { url: 'https://wger.de/media/exercise-video/371/6aae16b4-01b9-4eb4-935c-3250f84d2c59.MOV', provider: 'Wger exercise video' },
-  'Bayesian cable curl': { url: 'https://www.youtube.com/watch?v=928aRhhPP8I&t=706s', provider: 'Routine video demonstration' },
-  'Cross-body hammer curl': { url: 'https://wger.de/media/exercise-video/272/df069052-2173-4f24-855f-a0eebe729f24.MOV', provider: 'Wger exercise video' },
+  'Seated leg curl': { url: 'https://www.youtube.com/shorts/xdbEG3xGLI8', provider: 'YouTube Short · form tutorial' },
+  'Smith squat': { url: 'https://www.youtube.com/shorts/fUNkEW3N_ug', provider: 'YouTube Short · Smith squat tutorial' },
+  'Smith Romanian deadlift': { url: 'https://www.youtube.com/shorts/d-hn_0sEpRQ', provider: 'YouTube Short · Squat University' },
+  'Hip-thrust machine': { url: 'https://www.youtube.com/shorts/fv6EfDZ0E28', provider: 'YouTube Short · Mind Pump TV' },
+  'Leg extension': { url: 'https://www.youtube.com/shorts/ztNBgrGy6FQ', provider: 'YouTube Short · technique guide' },
+  'Hip adductor machine': { url: 'https://www.youtube.com/shorts/iPLvw74e7Tk', provider: 'YouTube Short · Planet Fitness' },
+  'Hip abductor machine': { url: 'https://www.youtube.com/shorts/S_FGYHNHJ_c', provider: 'YouTube Short · Jeff Nippard' },
+  'Machine calf raise': { url: 'https://www.youtube.com/shorts/Si2z1bf4_IQ', provider: 'YouTube Short · form tutorial' },
+  'Incline machine press': { url: 'https://www.youtube.com/shorts/VXaBbUYMfIs', provider: 'YouTube Short · incline press tutorial' },
+  'Flat Smith press': { url: 'https://www.youtube.com/shorts/hWbUlkb5Ms4', provider: 'YouTube Short · Jeff Nippard' },
+  'Seated cable fly': { url: 'https://www.youtube.com/shorts/vZI5VIZpG58', provider: 'YouTube Short · cable fly tutorial' },
+  'Machine shoulder press': { url: 'https://www.youtube.com/shorts/PM1hB_2xNBU', provider: 'YouTube Short · Planet Fitness' },
+  'High-cable lateral raise': { url: 'https://www.youtube.com/shorts/HeovYNoZDRg', provider: 'YouTube Short · Jeff Nippard' },
+  'Cross-body cable Y-raise': { url: 'https://www.youtube.com/shorts/G1KfOutH0VM', provider: 'YouTube Short · cable Y-raise' },
+  'Overhead cable extension': { url: 'https://www.youtube.com/shorts/7hx0-DZgdl8', provider: 'YouTube Short · Colossus Fitness' },
+  'Rope pressdown': { url: 'https://www.youtube.com/shorts/aHfbuBf1TJk', provider: 'YouTube Short · Planet Fitness' },
+  'Neutral-grip lat pulldown': { url: 'https://www.youtube.com/shorts/z-lxcsIN4T4', provider: 'YouTube Short · Davis Diley' },
+  'Wide-grip machine row': { url: 'https://www.youtube.com/shorts/2fFIRmW5Quw', provider: 'YouTube Short · row grip guide' },
+  'Neutral-grip seated row': { url: 'https://www.youtube.com/shorts/LjP2Ut-Rczs', provider: 'YouTube Short · cable row guide' },
+  'Supinated machine row': { url: 'https://www.youtube.com/shorts/2fFIRmW5Quw', provider: 'YouTube Short · row grip guide' },
+  'Single-arm cable lat pulldown': { url: 'https://www.youtube.com/shorts/k6-4AiJR3w4', provider: 'YouTube Short · single-arm lat tutorial' },
+  'Bottom-half dumbbell pullover': { url: 'https://www.youtube.com/shorts/A0xPR47jn_0', provider: 'YouTube Short · pullover tutorial' },
+  'Rope face pull': { url: 'https://www.youtube.com/shorts/sHSY0Ao8QHs', provider: 'YouTube Short · ATHLEAN-X & Huberman' },
+  'Dumbbell shrug': { url: 'https://www.youtube.com/watch?v=AAy1Fax6Bns', provider: 'YouTube · Ryan Humiston' },
+  'EZ-bar curl': { url: 'https://www.youtube.com/shorts/d2r5TCqnR4Y', provider: 'YouTube Short · ATHLEAN-X' },
+  'Preacher curl': { url: 'https://www.youtube.com/shorts/5u9qWmE7c2Y', provider: 'YouTube Short · ATHLEAN-X & Huberman' },
+  'Long-stride dumbbell walking lunge': { url: 'https://www.youtube.com/shorts/5eQd_hsXESI', provider: 'YouTube Short · Mind Pump TV' },
+  'Leg press': { url: 'https://www.youtube.com/shorts/BnacvXdaxq8', provider: 'YouTube Short · leg press guide' },
+  'Reverse pec-deck fly': { url: 'https://www.youtube.com/shorts/hWrcGjjd9VU', provider: 'YouTube Short · rear-delt fly tutorial' },
+  'Bayesian cable curl': { url: 'https://www.youtube.com/shorts/j5f_0rNkPwU', provider: 'YouTube Short · Jeff Nippard' },
+  'Cross-body hammer curl': { url: 'https://www.youtube.com/shorts/Ms4KcMab-DU', provider: 'YouTube Short · ATHLEAN-X' },
 };
 
 const exerciseImages: Record<string, string> = {
@@ -201,44 +189,51 @@ export default function Home() {
     <main className="site-main min-h-screen bg-background text-foreground">
       <header className="site-header sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground"><Dumbbell /></span><div><p className="font-heading text-lg font-black tracking-tight">ATHLETE 30</p><p className="hidden text-xs text-muted-foreground sm:block">Five-day muscle & posture plan</p></div></div>
-          <Badge className="h-7 bg-accent px-3 text-accent-foreground">Month 1 plan</Badge>
+          <div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground"><Dumbbell /></span><div><p className="font-heading text-lg font-black tracking-tight">ATHLETE 30</p><p className="hidden text-xs text-muted-foreground sm:block">Flexible muscle & posture cycle</p></div></div>
+          <Badge className="h-7 bg-accent px-3 text-accent-foreground">Rolling plan</Badge>
         </div>
       </header>
 
       <section className="site-shell mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
         <div className="hero mb-8 grid gap-6 lg:grid-cols-[1fr_390px] lg:items-end">
-          <div className="hero-copy"><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your training week</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Build width. <span>Stand taller.</span> Stay fast.</h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Two lower sessions, two complete upper-body exposures and four direct biceps movements. Cricket Sunday, full recovery Monday. Abs stay in your separate morning routine.</p></div>
+          <div className="hero-copy"><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your flexible training cycle</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Follow the order. <span>Ignore the calendar.</span></h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Start with Session 1 on any day. Complete the sessions in order, take the recovery checkpoint after Session 2, and never skip ahead or restart because you missed a day.</p></div>
           <div className="summary-panel">
-            <div><Flame /><p className="summary-value">86</p><p className="summary-label">weekly sets</p></div>
-            <div><Timer /><p className="summary-value">5</p><p className="summary-label">gym days</p></div>
+            <div><Flame /><p className="summary-value">86</p><p className="summary-label">sets per cycle</p></div>
+            <div><Timer /><p className="summary-value">5</p><p className="summary-label">workout sessions</p></div>
             <div><Zap /><p className="summary-value">4</p><p className="summary-label">biceps moves</p></div>
           </div>
         </div>
 
-        <nav className="day-tabs" aria-label="Jump to workout day">
-          {days.map((day) => <a key={day.id} href={`#${day.id}`} className="day-tab"><span>{day.short}</span><small>{day.eyebrow}</small></a>)}
+        <nav className="day-tabs" aria-label="Jump to workout cycle step">
+          {cycleSteps.map((step) => step.kind === 'workout'
+            ? <a key={step.day.id} href={`#${step.day.id}`} className="day-tab"><span>{step.day.short}</span><small>{step.day.eyebrow.split(' · ')[1]}</small></a>
+            : <a key={step.id} href={`#${step.id}`} className="day-tab cycle-rest-tab"><span>{step.short}</span><small>RECOVER</small></a>)}
         </nav>
-        {days.map((day) => (
-            <section key={day.id} id={day.id} className="workout-day scroll-mt-32">
-              <div className="day-heading"><div><p>{day.eyebrow}</p><h2>{day.title}</h2></div><p>{day.focus}</p></div>
-              <div className="exercise-grid">{day.exercises.map((exercise, i) => <ExerciseCard key={`${day.id}-${exercise.name}`} exercise={exercise} index={i} />)}</div>
-            </section>
+        {cycleSteps.map((step) => step.kind === 'workout' ? (
+          <section key={step.day.id} id={step.day.id} className="workout-day scroll-mt-32">
+            <div className="day-heading"><div><p>{step.day.eyebrow}</p><h2>{step.day.title}</h2><span className="session-time"><Timer /> {step.day.time}</span></div><p>{step.day.focus}</p></div>
+            <div className="exercise-grid">{step.day.exercises.map((exercise, i) => <ExerciseCard key={`${step.day.id}-${exercise.name}`} exercise={exercise} index={i} />)}</div>
+          </section>
+        ) : (
+          <section key={step.id} id={step.id} className="cycle-break scroll-mt-32">
+            <span className="cycle-break-number">REST</span>
+            <div><p>{step.eyebrow}</p><h2>{step.title}</h2><span>{step.focus}</span></div>
+          </section>
         ))}
 
         <section className="recovery-section">
-          <div><p className="section-kicker">THE OTHER TWO DAYS</p><h2>Recover like it is part of training.</h2></div>
-          <div className="recovery-card"><span className="recovery-day">SUN</span><div><h3>Cricket only</h3><p>Two T20 matches are your conditioning. Prioritize carbohydrates, fluids and electrolytes.</p></div></div>
-          <div className="recovery-card"><span className="recovery-day">MON</span><div><h3>Full rest</h3><p>Easy walking and gentle mobility are fine. No lifting and no hard running.</p></div></div>
+          <div><p className="section-kicker">AFTER SESSION 5</p><h2>Recover, then restart at 1.</h2></div>
+          <div className="recovery-card"><span className="recovery-day">REST</span><div><h3>Recovery or cricket</h3><p>If you play cricket, the matches replace lifting and conditioning. If not, take a full rest day or only easy activity.</p></div></div>
+          <div className="recovery-card"><span className="recovery-day">NEXT</span><div><h3>Resume the sequence</h3><p>After recovery, return to Session 1. If life interrupts the cycle, simply continue from the next numbered session.</p></div></div>
         </section>
 
         <section className="notes-grid">
           <div className="feature-note"><ShieldCheck /><div><h3>Neck-safe rule</h3><p>Keep your head neutral, stop any movement that increases neck pain, and keep shrugs controlled. Radiating pain, tingling or weakness needs a qualified clinician.</p></div></div>
           <div className="feature-note"><HeartPulse /><div><h3>Abs handled separately</h3><p>No ab exercises are programmed here because you train them in your morning routine. Keep that work controlled and recoverable.</p></div></div>
-          <div className="feature-note"><Sparkles /><div><h3>How to progress</h3><p>Tue/Wed/Thu/Sat: finish set one near 2 RIR and set two near 1 RIR. Friday stays near 3 RIR. Add the smallest weight when both sets reach the top of the range cleanly.</p></div></div>
+          <div className="feature-note"><Sparkles /><div><h3>How to progress</h3><p>Sessions 1, 2, 3 and 5: finish set one near 2 RIR and set two near 1 RIR. Session 4 stays near 3 RIR. Add the smallest weight when both sets reach the top of the range cleanly.</p></div></div>
         </section>
       </section>
-      <footer><p>ATHLETE 30 · Built for a five-day gym week and Sunday cricket</p></footer>
+      <footer><p>ATHLETE 30 · A flexible five-session cycle built around recovery and cricket</p></footer>
     </main>
   );
 }
