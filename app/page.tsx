@@ -13,7 +13,7 @@ const ex = (name: string, options: string[], muscle: string, reps: string, rest:
 
 const days: Day[] = [
   {
-    id: 'session-1', short: '01', eyebrow: 'SESSION 1 · LOWER A', title: 'Strength + posterior chain', focus: 'Your heavier lower session: deep squatting, hip hinging and glute strength. Start the cycle here whenever you are ready.', time: '65 min',
+    id: 'session-3', short: '03', eyebrow: 'WEDNESDAY · LOWER A', title: 'Strength + posterior chain', focus: 'Your heavier lower session: deep squatting, hip hinging and glute strength.', time: '65 min',
     exercises: [
       ex('Seated leg curl', ['Lying leg curl', 'Single-leg curl'], 'Hamstrings', '10-15', '75 sec', 'knee', 'Curl smoothly and squeeze without lifting the hips.', 'Do not let the stack crash down.'),
       ex('Smith squat', ['Leg press', 'Smith box squat'], 'Quads + glutes', '6-10', '2-3 min', 'squat', 'Use the deepest controlled range you can own; brace and drive through mid-foot.', 'Do not let your knees collapse inward or your pelvis tuck sharply.'),
@@ -26,7 +26,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'session-2', short: '02', eyebrow: 'SESSION 2 · PUSH', title: 'Chest + shoulders + triceps', focus: 'Pressing strength, upper-chest fullness, shoulder width and four direct working sets for triceps.', time: '60 min',
+    id: 'session-1', short: '01', eyebrow: 'MONDAY · PUSH', title: 'Chest + shoulders + triceps', focus: 'Start the week with pressing strength, upper-chest fullness, shoulder width and four direct working sets for triceps.', time: '60 min',
     exercises: [
       ex('Incline machine press', ['Smith incline press', 'Incline dumbbell press'], 'Upper chest', '6-10', '90 sec', 'press', 'Set a moderate incline; press up and slightly inward.', 'Do not flare elbows straight sideways.'),
       ex('Flat Smith press', ['Flat dumbbell press', 'Flat machine press'], 'Chest', '6-10', '2 min', 'press', 'Plant your feet and lower the bar toward mid-chest with stacked wrists.', 'Do not bounce the bar or shorten the bottom range.'),
@@ -39,7 +39,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'session-3', short: '03', eyebrow: 'SESSION 3 · PULL', title: 'Lats + mid-back + traps + biceps', focus: 'Your V-taper and posture session, with three rowing grips, direct trap work and two biceps movements.', time: '70 min',
+    id: 'session-2', short: '02', eyebrow: 'TUESDAY · PULL', title: 'Lats + mid-back + traps + biceps', focus: 'Your V-taper and posture session, with three rowing grips, direct trap work and two biceps movements.', time: '70 min',
     exercises: [
       ex('Neutral-grip lat pulldown', ['Medium overhand pulldown', 'Assisted pull-up'], 'Lats', '6-10', '2 min', 'pull', 'Keep your chest tall and drive elbows down toward your ribs.', 'Do not swing or pull behind your neck.'),
       ex('Wide-grip machine row', ['Chest-supported high row', 'Wide cable row'], 'Upper + mid-back', '8-12', '90 sec', 'row', 'Let the shoulder blades reach, then row toward the upper ribs.', 'Do not jut your head forward.', '1'),
@@ -54,7 +54,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'session-4', short: '04', eyebrow: 'SESSION 4 · LOWER B', title: 'Hips + moderate legs', focus: 'A cricket-friendly lower session: glute priority, moderate loads and every set stopped with about three reps in reserve.', time: '60 min',
+    id: 'session-5', short: '05', eyebrow: 'FRIDAY · LOWER B', title: 'Hips + moderate legs', focus: 'A cricket-friendly lower session: glute priority, moderate loads and every set stopped with about three reps in reserve.', time: '60 min',
     exercises: [
       ex('Hip-thrust machine', ['Smith hip thrust', 'Dumbbell hip thrust'], 'Glutes', '8-12', '2 min', 'thrust', 'Pause at full hip extension with ribs down and a slight pelvic tuck.', 'Do not finish by hyperextending your lower back.'),
       ex('Long-stride dumbbell walking lunge', ['Reverse dumbbell lunge', 'Smith split squat'], 'Glutes + quads', '8-10 / side', '90 sec', 'lunge', 'Take a long stride, keep the front heel grounded and push through it.', 'Do not rush or push off the back foot.'),
@@ -67,7 +67,7 @@ const days: Day[] = [
     ],
   },
   {
-    id: 'session-5', short: '05', eyebrow: 'SESSION 5 · UPPER', title: 'Physique-priority upper body', focus: 'A complete upper session for chest, lat width, mid-back, shoulders, traps, triceps and two more biceps movements.', time: '70 min',
+    id: 'session-4', short: '04', eyebrow: 'THURSDAY · UPPER', title: 'Physique-priority upper body', focus: 'A complete upper session for chest, lat width, mid-back, shoulders, traps, triceps and two more biceps movements.', time: '70 min',
     exercises: [
       ex('Incline machine press', ['Incline Smith press', 'Incline dumbbell press'], 'Upper chest', '6-10', '2 min', 'press', 'Use a low-to-moderate incline and control the descent.', 'Do not turn it into a vertical shoulder press.'),
       ex('Seated cable fly', ['Pec-deck fly', 'Single-arm cable fly'], 'Chest', '10-15', '75 sec', 'fly', 'Bring your upper arms together in a controlled arc.', 'Do not force an excessive shoulder stretch.'),
@@ -84,12 +84,13 @@ const days: Day[] = [
 ];
 
 const cycleSteps: CycleStep[] = [
-  { kind: 'workout', day: days[0] },
   { kind: 'workout', day: days[1] },
-  { kind: 'recovery', id: 'recovery-checkpoint', short: 'REST', eyebrow: 'RECOVERY CHECKPOINT', title: 'Recover before you pull.', focus: 'Take a full rest day here. Easy walking and gentle mobility are fine; then continue with Session 3.' },
   { kind: 'workout', day: days[2] },
-  { kind: 'workout', day: days[3] },
+  { kind: 'workout', day: days[0] },
   { kind: 'workout', day: days[4] },
+  { kind: 'workout', day: days[3] },
+  { kind: 'recovery', id: 'saturday-rest', short: 'SAT', eyebrow: 'SATURDAY · REST', title: 'Full recovery day.', focus: 'No lifting and no hard running. Easy walking and gentle mobility are fine.' },
+  { kind: 'recovery', id: 'sunday-cricket', short: 'SUN', eyebrow: 'SUNDAY · CRICKET', title: 'Cricket is the workout.', focus: 'Your matches replace gym training and conditioning. Prioritize carbohydrates, fluids and electrolytes.' },
 ];
 
 const demoLinks: Record<string, { url: string; provider: string }> = {
@@ -189,14 +190,14 @@ export default function Home() {
     <main className="site-main min-h-screen bg-background text-foreground">
       <header className="site-header sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground"><Dumbbell /></span><div><p className="font-heading text-lg font-black tracking-tight">ATHLETE 30</p><p className="hidden text-xs text-muted-foreground sm:block">Flexible muscle & posture cycle</p></div></div>
-          <Badge className="h-7 bg-accent px-3 text-accent-foreground">Rolling plan</Badge>
+          <div className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground"><Dumbbell /></span><div><p className="font-heading text-lg font-black tracking-tight">ATHLETE 30</p><p className="hidden text-xs text-muted-foreground sm:block">Five workouts + cricket week</p></div></div>
+          <Badge className="h-7 bg-accent px-3 text-accent-foreground">Weekly sequence</Badge>
         </div>
       </header>
 
       <section className="site-shell mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
         <div className="hero mb-8 grid gap-6 lg:grid-cols-[1fr_390px] lg:items-end">
-          <div className="hero-copy"><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your flexible training cycle</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Follow the order. <span>Ignore the calendar.</span></h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Start with Session 1 on any day. Complete the sessions in order, take the recovery checkpoint after Session 2, and never skip ahead or restart because you missed a day.</p></div>
+          <div className="hero-copy"><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your weekly training sequence</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Push. Pull. Legs. <span>Build and perform.</span></h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Train Push, Pull, Lower A, Upper and Lower B in that order. Saturday is full recovery and Sunday is reserved for cricket.</p></div>
           <div className="summary-panel">
             <div><Flame /><p className="summary-value">86</p><p className="summary-label">sets per cycle</p></div>
             <div><Timer /><p className="summary-value">5</p><p className="summary-label">workout sessions</p></div>
@@ -204,36 +205,50 @@ export default function Home() {
           </div>
         </div>
 
+        <section className="tracker-panel" aria-live="polite">
+          <div className="next-workout-card">
+            <p>NEXT WORKOUT</p>
+            <h2 data-next-workout>Pull</h2>
+            <span data-next-detail>Next in sequence after Push.</span>
+            <a href="#session-2" data-next-link>Jump to workout <span aria-hidden="true">↓</span></a>
+          </div>
+          <div className="last-workout-card">
+            <span className="status-dot" aria-hidden="true" />
+            <div><p>LAST COMPLETED</p><h3 data-last-workout>Push · yesterday</h3><span>Saved on this device. Mark any workout below to update it.</span></div>
+          </div>
+        </section>
+
         <nav className="day-tabs" aria-label="Jump to workout cycle step">
           {cycleSteps.map((step) => step.kind === 'workout'
-            ? <a key={step.day.id} href={`#${step.day.id}`} className="day-tab"><span>{step.day.short}</span><small>{step.day.eyebrow.split(' · ')[1]}</small></a>
-            : <a key={step.id} href={`#${step.id}`} className="day-tab cycle-rest-tab"><span>{step.short}</span><small>RECOVER</small></a>)}
+            ? <a key={step.day.id} href={`#${step.day.id}`} data-nav-workout={step.day.id} className={`day-tab${step.day.id === 'session-1' ? ' is-last-completed' : ''}`}><span>{step.day.short}</span><small>{step.day.eyebrow.split(' · ')[1]}</small></a>
+            : <a key={step.id} href={`#${step.id}`} className="day-tab cycle-rest-tab"><span>{step.short}</span><small>{step.eyebrow.split(' · ')[1]}</small></a>)}
         </nav>
         {cycleSteps.map((step) => step.kind === 'workout' ? (
-          <section key={step.day.id} id={step.day.id} className="workout-day scroll-mt-32">
-            <div className="day-heading"><div><p>{step.day.eyebrow}</p><h2>{step.day.title}</h2><span className="session-time"><Timer /> {step.day.time}</span></div><p>{step.day.focus}</p></div>
+          <section key={step.day.id} id={step.day.id} data-workout-id={step.day.id} data-workout-name={step.day.eyebrow.split(' · ')[1]} className={`workout-day scroll-mt-32${step.day.id === 'session-1' ? ' is-last-completed' : ''}`}>
+            <div className="day-heading"><div><p>{step.day.eyebrow}</p><h2>{step.day.title}</h2><span className="session-time"><Timer /> {step.day.time}</span></div><div className="day-summary"><p>{step.day.focus}</p><button type="button" className={`mark-complete${step.day.id === 'session-1' ? ' is-complete' : ''}`} data-mark-workout={step.day.id} aria-pressed={step.day.id === 'session-1'}><CheckCircle2 /><span>{step.day.id === 'session-1' ? 'Completed last time' : 'Mark as last completed'}</span></button></div></div>
             <div className="exercise-grid">{step.day.exercises.map((exercise, i) => <ExerciseCard key={`${step.day.id}-${exercise.name}`} exercise={exercise} index={i} />)}</div>
           </section>
         ) : (
           <section key={step.id} id={step.id} className="cycle-break scroll-mt-32">
-            <span className="cycle-break-number">REST</span>
+            <span className="cycle-break-number">{step.short}</span>
             <div><p>{step.eyebrow}</p><h2>{step.title}</h2><span>{step.focus}</span></div>
           </section>
         ))}
 
         <section className="recovery-section">
-          <div><p className="section-kicker">AFTER SESSION 5</p><h2>Recover, then restart at 1.</h2></div>
-          <div className="recovery-card"><span className="recovery-day">REST</span><div><h3>Recovery or cricket</h3><p>If you play cricket, the matches replace lifting and conditioning. If not, take a full rest day or only easy activity.</p></div></div>
-          <div className="recovery-card"><span className="recovery-day">NEXT</span><div><h3>Resume the sequence</h3><p>After recovery, return to Session 1. If life interrupts the cycle, simply continue from the next numbered session.</p></div></div>
+          <div><p className="section-kicker">FIXED WEEKEND</p><h2>Recovery, then match day.</h2></div>
+          <div className="recovery-card"><span className="recovery-day">SAT</span><div><h3>Full rest</h3><p>No lifting and no hard running. Easy walking and gentle mobility are fine.</p></div></div>
+          <div className="recovery-card"><span className="recovery-day">SUN</span><div><h3>Cricket only</h3><p>Your matches replace lifting and conditioning. Prioritize carbohydrates, fluids and electrolytes.</p></div></div>
         </section>
 
         <section className="notes-grid">
           <div className="feature-note"><ShieldCheck /><div><h3>Neck-safe rule</h3><p>Keep your head neutral, stop any movement that increases neck pain, and keep shrugs controlled. Radiating pain, tingling or weakness needs a qualified clinician.</p></div></div>
           <div className="feature-note"><HeartPulse /><div><h3>Abs handled separately</h3><p>No ab exercises are programmed here because you train them in your morning routine. Keep that work controlled and recoverable.</p></div></div>
-          <div className="feature-note"><Sparkles /><div><h3>How to progress</h3><p>Sessions 1, 2, 3 and 5: finish set one near 2 RIR and set two near 1 RIR. Session 4 stays near 3 RIR. Add the smallest weight when both sets reach the top of the range cleanly.</p></div></div>
+          <div className="feature-note"><Sparkles /><div><h3>How to progress</h3><p>Push, Pull, Lower A and Upper: finish set one near 2 RIR and set two near 1 RIR. Friday’s Lower B stays near 3 RIR. Add the smallest weight when both sets reach the top of the range cleanly.</p></div></div>
         </section>
       </section>
-      <footer><p>ATHLETE 30 · A flexible five-session cycle built around recovery and cricket</p></footer>
+      <script src="./tracker.js" defer />
+      <footer><p>ATHLETE 30 · Push · Pull · Lower A · Upper · Lower B · Rest · Cricket</p></footer>
     </main>
   );
 }

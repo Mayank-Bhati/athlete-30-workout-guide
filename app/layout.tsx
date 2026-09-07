@@ -7,7 +7,7 @@ const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin']
 
 export const metadata: Metadata = {
   title: 'Athlete 30 — Workout Guide',
-  description: 'A flexible five-session muscle, athleticism and posture cycle with visual exercise demonstrations.',
+  description: 'A tracked Monday-to-Sunday muscle, athleticism and posture plan with visual exercise demonstrations.',
   openGraph: {
     title: 'Athlete 30 — Workout Guide',
     description: 'Build width. Stand taller. Stay fast.',
