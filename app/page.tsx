@@ -8,76 +8,76 @@ type Motion = 'pull' | 'row' | 'curl' | 'raise' | 'press' | 'fly' | 'squat' | 'h
 type Exercise = { name: string; options: string[]; muscle: string; sets: string; reps: string; rest: string; motion: Motion; cue: string; avoid: string };
 type Day = { id: string; short: string; eyebrow: string; title: string; focus: string; time: string; exercises: Exercise[] };
 
-const ex = (name: string, options: string[], muscle: string, reps: string, rest: string, motion: Motion, cue: string, avoid: string): Exercise => ({ name, options, muscle, sets: '2', reps, rest, motion, cue, avoid });
+const ex = (name: string, options: string[], muscle: string, reps: string, rest: string, motion: Motion, cue: string, avoid: string, sets = '2'): Exercise => ({ name, options, muscle, sets, reps, rest, motion, cue, avoid });
 
 const days: Day[] = [
   {
-    id: 'tue', short: 'Tue', eyebrow: 'PULL A', title: 'Lat width + biceps', focus: 'Build the V-taper with vertical pulls, then give biceps four direct working sets.', time: '60 min',
+    id: 'tue', short: 'Tue', eyebrow: 'LOWER A', title: 'Strength + posterior chain', focus: 'Your heavier lower session: deep squatting, hip hinging and glute strength with four full days before cricket.', time: '65 min',
     exercises: [
-      ex('Wide-grip lat pulldown', ['Neutral-grip pulldown', 'Underhand pulldown'], 'Lats', '6-10', '90 sec', 'pull', 'Chest tall; drive elbows down toward your ribs.', 'Do not swing or pull the bar behind your neck.'),
-      ex('Single-arm cable lat pulldown', ['Half-kneeling one-arm pulldown', 'One-arm high cable row'], 'Lower lats', '8-12 / side', '75 sec', 'pull', 'Reach fully, then pull your elbow toward the back pocket.', 'Keep the shoulder away from your ear.'),
-      ex('Neutral-grip seated row', ['Wide overhand machine row', 'Supinated machine row'], 'Mid-back', '8-12', '90 sec', 'row', 'Pause for one second with shoulder blades gently together.', 'Do not turn it into a lower-back swing.'),
-      ex('Straight-arm cable pulldown', ['Rope pulldown', 'Dumbbell pullover'], 'Lats', '10-15', '60 sec', 'pull', 'Keep arms nearly straight and finish with hands by thighs.', 'Do not bend the elbows into a pressdown.'),
-      ex('Chest-supported dumbbell row', ['Chest-supported machine row', 'Incline-bench high row'], 'Mid-back', '8-12', '90 sec', 'row', 'Let shoulder blades reach, then row without lifting your chest.', 'Do not shrug at the top.'),
-      ex('Reverse pec-deck fly', ['Cable rear-delt fly', 'Incline rear-delt raise'], 'Rear delts', '12-20', '60 sec', 'fly', 'Lead with elbows and open the arms in a wide arc.', 'Use a load that does not pull your head forward.'),
-      ex('Incline dumbbell curl', ['Facing-away cable curl', 'Alternating dumbbell curl'], 'Biceps', '8-12', '75 sec', 'curl', 'Keep the upper arm still and reach a full elbow extension.', 'Do not roll the shoulders forward.'),
-      ex('Hammer curl', ['Rope hammer curl', 'Cross-body hammer curl'], 'Biceps + brachialis', '10-15', '60 sec', 'curl', 'Use a neutral grip and control the lowering phase.', 'Do not throw the dumbbells up with your hips.'),
-      ex('Hanging knee raise', ['Captain-chair knee raise', 'Cable crunch'], 'Core', '10-15', '60 sec', 'core', 'Curl the pelvis up instead of only lifting the thighs.', 'Avoid swinging between reps.'),
+      ex('Seated leg curl', ['Lying leg curl', 'Single-leg curl'], 'Hamstrings', '10-15', '75 sec', 'knee', 'Curl smoothly and squeeze without lifting the hips.', 'Do not let the stack crash down.'),
+      ex('Smith squat', ['Leg press', 'Smith box squat'], 'Quads + glutes', '6-10', '2-3 min', 'squat', 'Use the deepest controlled range you can own; brace and drive through mid-foot.', 'Do not let your knees collapse inward or your pelvis tuck sharply.'),
+      ex('Smith Romanian deadlift', ['Dumbbell Romanian deadlift', 'Cable pull-through'], 'Hamstrings + glutes', '6-10', '2-3 min', 'hinge', 'Push your hips back with soft knees and keep the bar close.', 'Do not chase depth by rounding your back.'),
+      ex('Hip-thrust machine', ['Smith hip thrust', 'Dumbbell hip thrust'], 'Glutes', '8-12', '2 min', 'thrust', 'Pause at full hip extension with ribs down and a slight pelvic tuck.', 'Do not finish by hyperextending your lower back.'),
+      ex('Leg extension', ['Single-leg extension', 'Slow-tempo leg extension'], 'Quads', '10-15', '75 sec', 'knee', 'Align the machine pivot with your knee and extend smoothly.', 'Do not kick explosively into lockout.'),
+      ex('Hip adductor machine', ['Cable standing adduction', 'Copenhagen plank'], 'Inner thighs', '12-20', '60 sec', 'hip', 'Close the legs smoothly and control the return.', 'Do not force a painful stretch.'),
+      ex('Hip abductor machine', ['Cable standing abduction', 'Lateral band walk'], 'Side glutes', '15-20', '60 sec', 'hip', 'Open from the hips and pause; a slight forward lean may help you feel the glutes.', 'Do not bounce or lean far back.'),
+      ex('Machine calf raise', ['Leg-press calf raise', 'Smith standing calf raise'], 'Calves', '10-15', '75 sec', 'calf', 'Pause in the stretch and rise onto the big toe.', 'Do not bounce through the bottom.'),
     ],
   },
   {
-    id: 'wed', short: 'Wed', eyebrow: 'PUSH A', title: 'Chest + shoulders + triceps', focus: 'Upper-chest fullness, round delts and four direct sets for triceps.', time: '55 min',
+    id: 'wed', short: 'Wed', eyebrow: 'PUSH', title: 'Chest + shoulders + triceps', focus: 'Pressing strength, upper-chest fullness, shoulder width and four direct working sets for triceps.', time: '60 min',
     exercises: [
       ex('Incline machine press', ['Smith incline press', 'Incline dumbbell press'], 'Upper chest', '6-10', '90 sec', 'press', 'Set a moderate incline; press up and slightly inward.', 'Do not flare elbows straight sideways.'),
-      ex('Flat dumbbell press', ['Flat machine press', 'Smith flat press'], 'Chest', '8-12', '90 sec', 'press', 'Plant feet and lower with forearms close to vertical.', 'Do not bounce or shorten the bottom range.'),
-      ex('Pec-deck fly', ['Mid-height cable fly', 'Single-arm cable fly'], 'Chest', '10-15', '60 sec', 'fly', 'Bring upper arms together while keeping chest lifted.', 'Do not force an excessive shoulder stretch.'),
-      ex('Seated dumbbell shoulder press', ['Machine shoulder press', 'Smith shoulder press'], 'Front + side delts', '6-10', '90 sec', 'press', 'Keep ribs stacked and press without craning your neck.', 'Do not overarch the lower back.'),
-      ex('Cable lateral raise', ['Dumbbell lateral raise', 'Leaning cable lateral raise'], 'Side delts', '12-20', '60 sec', 'raise', 'Lead with elbows and stop near shoulder height.', 'Do not shrug the weight upward.'),
-      ex('Rope pressdown', ['Straight-bar pressdown', 'Single-arm pressdown'], 'Triceps', '8-12', '60 sec', 'triceps', 'Pin elbows to your sides and fully straighten.', 'Do not let the shoulders roll forward.'),
-      ex('Overhead cable extension', ['Rope overhead extension', 'Single-dumbbell extension'], 'Long-head triceps', '10-15', '60 sec', 'triceps', 'Keep upper arms angled forward and extend completely.', 'Do not flare the elbows aggressively.'),
-      ex('Pallof press', ['Tall-kneeling Pallof press', 'Forearm plank'], 'Core', '10-12 / side', '45 sec', 'core', 'Brace, exhale, and resist rotation as arms extend.', 'Do not twist toward the cable.'),
+      ex('Flat Smith press', ['Flat dumbbell press', 'Flat machine press'], 'Chest', '6-10', '2 min', 'press', 'Plant your feet and lower the bar toward mid-chest with stacked wrists.', 'Do not bounce the bar or shorten the bottom range.'),
+      ex('Seated cable fly', ['Pec-deck fly', 'Single-arm cable fly'], 'Chest', '10-15', '75 sec', 'fly', 'Bring your upper arms together in a controlled arc while keeping the chest lifted.', 'Do not force an excessive shoulder stretch.'),
+      ex('Machine shoulder press', ['Seated dumbbell press', 'Smith shoulder press'], 'Front + side delts', '8-12', '2 min', 'press', 'Keep ribs stacked and press without craning your neck.', 'Do not overarch the lower back.'),
+      ex('High-cable lateral raise', ['Leaning cable lateral raise', 'Dumbbell lateral raise'], 'Side delts', '10-15', '60 sec', 'raise', 'Lead with your elbow and keep the shoulder away from your ear.', 'Do not shrug the weight upward.'),
+      ex('Cross-body cable Y-raise', ['Incline-bench Y-raise', 'Wall slide with lift-off'], 'Side delts + lower traps', '12-15', '60 sec', 'raise', 'Raise into a Y with a light load and a long, neutral neck.', 'Do not turn it into a shrug.'),
+      ex('Overhead cable extension', ['Rope overhead extension', 'Single-dumbbell extension'], 'Long-head triceps', '8-12', '75 sec', 'triceps', 'Keep upper arms angled forward and extend completely.', 'Do not flare the elbows aggressively.'),
+      ex('Rope pressdown', ['Straight-bar pressdown', 'Single-arm pressdown'], 'Triceps', '10-15', '60 sec', 'triceps', 'Pin elbows to your sides and fully straighten.', 'Do not let the shoulders roll forward.'),
     ],
   },
   {
-    id: 'thu', short: 'Thu', eyebrow: 'LOWER', title: 'Legs + hip priority', focus: 'The only hard leg day: glutes and hips lead, with enough time to recover before Sunday cricket.', time: '65 min',
+    id: 'thu', short: 'Thu', eyebrow: 'PULL', title: 'Lats + mid-back + traps + biceps', focus: 'Your V-taper and posture day, with three rowing grips, direct trap work and two biceps movements.', time: '70 min',
     exercises: [
-      ex('Smith squat', ['Leg press', 'Smith box squat'], 'Quads + glutes', '6-10', '120 sec', 'squat', 'Brace first; sit between your hips and drive through mid-foot.', 'Do not let knees collapse inward.'),
-      ex('Smith Romanian deadlift', ['Dumbbell Romanian deadlift', 'Cable pull-through'], 'Hamstrings + glutes', '8-10', '90 sec', 'hinge', 'Push hips backward with a long spine and soft knees.', 'Do not chase depth by rounding your back.'),
-      ex('Hip-thrust machine', ['Smith hip thrust', 'Dumbbell hip thrust'], 'Glutes', '8-12', '90 sec', 'thrust', 'Tuck the pelvis slightly and pause at full hip extension.', 'Do not finish by arching your lower back.'),
-      ex('Bulgarian split squat', ['Reverse dumbbell lunge', 'Smith split squat'], 'Glutes + quads', '8-12 / side', '90 sec', 'lunge', 'Use a long enough stance to keep the front heel grounded.', 'Do not push off the back foot.'),
-      ex('Seated leg curl', ['Lying leg curl', 'Single-leg curl'], 'Hamstrings', '10-15', '60 sec', 'knee', 'Curl smoothly and squeeze without lifting the hips.', 'Do not let the stack crash down.'),
-      ex('Leg extension', ['Single-leg extension', 'Slow-tempo leg extension'], 'Quads', '10-15', '60 sec', 'knee', 'Align the machine pivot with your knee and extend smoothly.', 'Do not kick explosively into lockout.'),
-      ex('Hip abductor machine', ['Cable standing abduction', 'Lateral band walk'], 'Side glutes', '12-20', '45 sec', 'hip', 'Open from the hips and pause without bouncing.', 'Do not lean far back to manufacture range.'),
-      ex('Hip adductor machine', ['Cable standing adduction', 'Copenhagen plank'], 'Inner thighs', '12-20', '45 sec', 'hip', 'Close the legs smoothly and control the return.', 'Do not force a painful stretch.'),
-      ex('Machine calf raise', ['Leg-press calf raise', 'Smith standing calf raise'], 'Calves', '10-15', '60 sec', 'calf', 'Pause in the stretch and rise onto the big toe.', 'Do not bounce through the bottom.'),
+      ex('Neutral-grip lat pulldown', ['Medium overhand pulldown', 'Assisted pull-up'], 'Lats', '6-10', '2 min', 'pull', 'Keep your chest tall and drive elbows down toward your ribs.', 'Do not swing or pull behind your neck.'),
+      ex('Wide-grip machine row', ['Chest-supported high row', 'Wide cable row'], 'Upper + mid-back', '8-12', '90 sec', 'row', 'Let the shoulder blades reach, then row toward the upper ribs.', 'Do not jut your head forward.', '1'),
+      ex('Neutral-grip seated row', ['Close machine row', 'Chest-supported dumbbell row'], 'Mid-back', '8-12', '90 sec', 'row', 'Pause with the shoulder blades gently together and your neck long.', 'Do not turn it into a lower-back swing.', '1'),
+      ex('Supinated machine row', ['Underhand cable row', 'One-arm supinated row'], 'Lats + mid-back', '8-12', '90 sec', 'row', 'Keep elbows close and pull toward the lower ribs.', 'Do not curl the handle with your wrists.', '1'),
+      ex('Single-arm cable lat pulldown', ['Half-kneeling one-arm pulldown', 'One-arm high cable row'], 'Lower lats', '10-12 / side', '75 sec', 'pull', 'Reach fully, then pull your elbow toward your back pocket.', 'Keep the shoulder away from your ear.'),
+      ex('Bottom-half dumbbell pullover', ['Cable pullover', 'Straight-arm cable pulldown'], 'Lats', '10-15', '75 sec', 'pull', 'Use the stretched half of the motion while keeping ribs down.', 'Do not turn it into a triceps extension.'),
+      ex('Rope face pull', ['Low cable angle', 'Mid cable angle', 'High cable angle'], 'Rear delts + mid traps', '12-15', '60 sec', 'row', 'Do one set from each cable height and finish with thumbs behind you.', 'Do not shrug or overextend your neck.', '3'),
+      ex('Dumbbell shrug', ['Smith shrug', 'Cable shrug'], 'Upper traps', '8-12', '90 sec', 'shrug', 'Lift your shoulders straight up, pause, then lower fully.', 'Never roll the shoulders in circles.'),
+      ex('EZ-bar curl', ['Cable curl', 'Alternating dumbbell curl'], 'Biceps', '6-10', '75 sec', 'curl', 'Keep your upper arms still and control the full lowering phase.', 'Do not lean backward to move the bar.'),
+      ex('Preacher curl', ['Machine preacher curl', 'Spider curl'], 'Biceps', '10-12', '60-75 sec', 'curl', 'Keep the upper arm supported and lower under control.', 'Do not hyperextend the elbow at the bottom.'),
     ],
   },
   {
-    id: 'fri', short: 'Fri', eyebrow: 'PULL B', title: 'Mid-back + traps + biceps', focus: 'Posture-oriented pulling, trap development and another four direct biceps sets.', time: '60 min',
+    id: 'fri', short: 'Fri', eyebrow: 'LOWER B', title: 'Hips + moderate legs', focus: 'A cricket-friendly lower session: glute priority, moderate loads and every set stopped with about three reps in reserve.', time: '60 min',
     exercises: [
-      ex('Neutral-grip lat pulldown', ['Close underhand pulldown', 'Assisted pull-up'], 'Lats', '8-12', '90 sec', 'pull', 'Pull shoulders down first, then bring elbows toward ribs.', 'Do not lead by jutting your chin forward.'),
-      ex('Wide-grip machine row', ['Chest-supported high row', 'Wide cable row'], 'Mid-back', '8-12', '90 sec', 'row', 'Row toward upper ribs and pause without shrugging.', 'Do not pull the elbows far behind your torso.'),
-      ex('Single-arm cable row', ['One-arm dumbbell row', 'Split-stance cable row'], 'Lats + mid-back', '10-12 / side', '75 sec', 'row', 'Stay square and let the shoulder blade move naturally.', 'Do not twist through your waist.'),
-      ex('Rope face pull', ['Cable high row to face', 'Band face pull'], 'Rear delts + mid traps', '12-20', '60 sec', 'row', 'Pull toward eyebrow level and rotate thumbs behind you.', 'Do not shrug or overextend the neck.'),
-      ex('Cable rear-delt fly', ['Reverse pec deck', 'Incline rear-delt raise'], 'Rear delts', '12-20', '60 sec', 'fly', 'Open wide with soft elbows and a quiet torso.', 'Do not turn it into a heavy row.'),
-      ex('Cable Y-raise', ['Incline-bench Y-raise', 'Wall slide with lift-off'], 'Lower traps', '12-15', '45 sec', 'raise', 'Raise arms in a Y with shoulders kept away from ears.', 'Do not use momentum or a heavy load.'),
-      ex('Dumbbell shrug', ['Smith shrug', 'Cable shrug'], 'Upper traps', '10-15', '75 sec', 'shrug', 'Lift shoulders straight up, pause, then lower fully.', 'Never roll the shoulders in circles.'),
-      ex('Preacher curl', ['Machine preacher curl', 'Spider curl'], 'Biceps', '8-12', '75 sec', 'curl', 'Keep the upper arm supported and lower under control.', 'Do not hyperextend the elbow at the bottom.'),
-      ex('Cable curl', ['EZ-bar curl', 'Supinating dumbbell curl'], 'Biceps', '10-15', '60 sec', 'curl', 'Keep constant tension and squeeze without moving elbows.', 'Do not lean backward as fatigue rises.'),
+      ex('Hip-thrust machine', ['Smith hip thrust', 'Dumbbell hip thrust'], 'Glutes', '8-12', '2 min', 'thrust', 'Pause at full hip extension with ribs down and a slight pelvic tuck.', 'Do not finish by hyperextending your lower back.'),
+      ex('Long-stride dumbbell walking lunge', ['Reverse dumbbell lunge', 'Smith split squat'], 'Glutes + quads', '8-10 / side', '90 sec', 'lunge', 'Take a long stride, keep the front heel grounded and push through it.', 'Do not rush or push off the back foot.'),
+      ex('Leg press', ['Smith squat', 'Single-leg press'], 'Quads + glutes', '10-15', '90 sec', 'squat', 'Lower under control while keeping your pelvis and lower back supported.', 'Do not lock the knees forcefully.'),
+      ex('Seated leg curl', ['Lying leg curl', 'Single-leg curl'], 'Hamstrings', '10-15', '75 sec', 'knee', 'Curl smoothly and squeeze without lifting the hips.', 'Do not let the stack crash down.'),
+      ex('Leg extension', ['Single-leg extension', 'Slow-tempo leg extension'], 'Quads', '12-15', '60 sec', 'knee', 'Align the machine pivot with your knee and extend smoothly.', 'Do not kick explosively into lockout.'),
+      ex('Hip abductor machine', ['Cable standing abduction', 'Lateral band walk'], 'Side glutes', '15-20', '60 sec', 'hip', 'Open from the hips and pause without bouncing.', 'Do not lean far back to manufacture range.'),
+      ex('Hip adductor machine', ['Cable standing adduction', 'Copenhagen plank'], 'Inner thighs', '15-20', '60 sec', 'hip', 'Close the legs smoothly and control the return.', 'Do not force a painful stretch.'),
+      ex('Machine calf raise', ['Leg-press calf raise', 'Smith standing calf raise'], 'Calves', '12-20', '60 sec', 'calf', 'Pause in the stretch and rise onto the big toe.', 'Do not bounce through the bottom.'),
     ],
   },
   {
-    id: 'sat', short: 'Sat', eyebrow: 'PUSH B', title: 'Shoulders + chest + triceps', focus: 'Finish the week with delt width, triceps thickness and controlled pressing before match day.', time: '55 min',
+    id: 'sat', short: 'Sat', eyebrow: 'UPPER', title: 'Physique-priority upper body', focus: 'A complete upper session for chest, lat width, mid-back, shoulders, traps, triceps and two more biceps movements.', time: '70 min',
     exercises: [
-      ex('Flat Smith press', ['Flat dumbbell press', 'Flat machine press'], 'Chest', '6-10', '90 sec', 'press', 'Set the bench so the bar reaches mid-chest.', 'Keep wrists stacked instead of bent backward.'),
-      ex('Incline dumbbell press', ['Incline machine press', 'Low-incline Smith press'], 'Upper chest', '8-12', '90 sec', 'press', 'Use a low-to-moderate incline and control the descent.', 'Do not turn it into a vertical shoulder press.'),
-      ex('Low-to-high cable fly', ['Pec-deck fly', 'Incline cable fly'], 'Upper chest', '10-15', '60 sec', 'fly', 'Sweep hands upward and inward while keeping ribs down.', 'Do not bend and straighten the elbows each rep.'),
-      ex('Machine shoulder press', ['Arnold press', 'Seated dumbbell press'], 'Delts', '8-12', '90 sec', 'press', 'Keep head neutral and stop before losing rib position.', 'Do not press through neck pain.'),
-      ex('Leaning cable lateral raise', ['Dumbbell lateral raise', 'Machine lateral raise'], 'Side delts', '12-20', '60 sec', 'raise', 'Raise in the shoulder-blade plane with a soft elbow.', 'Do not lead with the hand above the elbow.'),
+      ex('Incline machine press', ['Incline Smith press', 'Incline dumbbell press'], 'Upper chest', '6-10', '2 min', 'press', 'Use a low-to-moderate incline and control the descent.', 'Do not turn it into a vertical shoulder press.'),
+      ex('Seated cable fly', ['Pec-deck fly', 'Single-arm cable fly'], 'Chest', '10-15', '75 sec', 'fly', 'Bring your upper arms together in a controlled arc.', 'Do not force an excessive shoulder stretch.'),
+      ex('Neutral-grip lat pulldown', ['Weighted pull-up', 'Assisted pull-up'], 'Lats', '6-10', '2 min', 'pull', 'Keep the chest tall and drive elbows down toward your ribs.', 'Do not swing or jut your head forward.'),
+      ex('Wide-grip machine row', ['Chest-supported high row', 'Wide cable row'], 'Upper + mid-back', '8-12', '90 sec', 'row', 'Row toward the upper ribs and pause without shrugging.', 'Do not pull the elbows far behind your torso.'),
+      ex('High-cable lateral raise', ['Leaning cable lateral raise', 'Dumbbell lateral raise'], 'Side delts', '10-15', '60 sec', 'raise', 'Lead with your elbow and keep the shoulder away from your ear.', 'Do not shrug the weight upward.'),
       ex('Reverse pec-deck fly', ['Cable rear-delt fly', 'Chest-supported rear-delt raise'], 'Rear delts', '12-20', '60 sec', 'fly', 'Reach wide and keep the shoulder blades controlled.', 'Do not thrust the chest off the pad.'),
-      ex('Close-grip Smith press', ['Assisted dip', 'Close-grip dumbbell press'], 'Triceps', '6-10', '90 sec', 'press', 'Keep elbows about 30 degrees from the body and press firmly.', 'Do not make the grip painfully narrow.'),
-      ex('Single-arm cable extension', ['Rope overhead extension', 'Cross-body extension'], 'Triceps', '10-15 / side', '60 sec', 'triceps', 'Fix the upper arm and straighten the elbow completely.', 'Do not twist the shoulder to finish.'),
-      ex('Ab-wheel rollout', ['Stability-ball rollout', 'Cable woodchop'], 'Core', '8-15', '60 sec', 'core', 'Squeeze glutes and extend only as far as you can brace.', 'Do not let the lower back sag.'),
+      ex('Dumbbell shrug', ['Smith shrug', 'Cable shrug'], 'Upper traps', '10-15', '75 sec', 'shrug', 'Lift your shoulders straight up, pause, then lower fully.', 'Never roll the shoulders in circles.'),
+      ex('Overhead cable extension', ['Rope overhead extension', 'Single-dumbbell extension'], 'Long-head triceps', '10-12', '75 sec', 'triceps', 'Keep upper arms angled forward and extend completely.', 'Do not flare the elbows aggressively.'),
+      ex('Bayesian cable curl', ['Incline dumbbell curl', 'Facing-away cable curl'], 'Biceps', '10-12', '60-75 sec', 'curl', 'Keep your upper arm behind your torso and curl without moving the shoulder.', 'Do not step so far forward that the shoulder feels strained.'),
+      ex('Cross-body hammer curl', ['Rope hammer curl', 'Standard hammer curl'], 'Biceps + brachialis', '10-12', '60-75 sec', 'curl', 'Curl across your torso with a neutral grip and control the lowering phase.', 'Do not throw the dumbbell up with your hips.'),
     ],
   },
 ];
@@ -126,6 +126,16 @@ const demoLinks: Record<string, { url: string; provider: string }> = {
   'Close-grip Smith press': { url: 'https://www.youtube.com/watch?v=z8UWdGwtzRM', provider: 'YouTube form tutorial' },
   'Single-arm cable extension': { url: 'https://wger.de/media/exercise-video/803/99e0001f-217a-4b11-823c-014d24a5415e.MOV', provider: 'Wger exercise video' },
   'Ab-wheel rollout': { url: 'https://www.youtube.com/watch?v=nCh8VfWY5_g', provider: 'YouTube form tutorial' },
+  'Seated cable fly': { url: 'https://www.youtube.com/watch?v=928aRhhPP8I&t=164s', provider: 'Routine video demonstration' },
+  'High-cable lateral raise': { url: 'https://www.youtube.com/watch?v=928aRhhPP8I&t=414s', provider: 'Routine video demonstration' },
+  'Cross-body cable Y-raise': { url: 'https://www.youtube.com/watch?v=c3pbe3qzatQ&t=492s', provider: 'Routine video demonstration' },
+  'Supinated machine row': { url: 'https://www.youtube.com/watch?v=spKGN0XzErU&t=307s', provider: 'Routine video demonstration' },
+  'Bottom-half dumbbell pullover': { url: 'https://www.youtube.com/watch?v=spKGN0XzErU&t=381s', provider: 'Routine video demonstration' },
+  'EZ-bar curl': { url: 'https://www.youtube.com/watch?v=spKGN0XzErU&t=563s', provider: 'Routine video demonstration' },
+  'Long-stride dumbbell walking lunge': { url: 'https://www.youtube.com/watch?v=H6mRkx1x77k&t=305s', provider: 'Routine video demonstration' },
+  'Leg press': { url: 'https://wger.de/media/exercise-video/371/6aae16b4-01b9-4eb4-935c-3250f84d2c59.MOV', provider: 'Wger exercise video' },
+  'Bayesian cable curl': { url: 'https://www.youtube.com/watch?v=928aRhhPP8I&t=706s', provider: 'Routine video demonstration' },
+  'Cross-body hammer curl': { url: 'https://wger.de/media/exercise-video/272/df069052-2173-4f24-855f-a0eebe729f24.MOV', provider: 'Wger exercise video' },
 };
 
 function ExerciseCard({ exercise, index }: { exercise: Exercise; index: number }) {
@@ -162,9 +172,9 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-10">
         <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_390px] lg:items-end">
-          <div><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your training week</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Build width. Stand taller. Stay fast.</h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Two direct biceps exercises on both pull days. Two hard sets per movement. Cricket Sunday, full recovery Monday.</p></div>
+          <div><p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-primary">Your training week</p><h1 className="max-w-3xl font-heading text-4xl font-black leading-[1.03] tracking-[-0.04em] sm:text-6xl">Build width. Stand taller. Stay fast.</h1><p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">Two lower sessions, two complete upper-body exposures and four direct biceps movements. Cricket Sunday, full recovery Monday. Abs stay in your separate morning routine.</p></div>
           <div className="summary-panel">
-            <div><Flame /><p className="summary-value">88</p><p className="summary-label">weekly sets</p></div>
+            <div><Flame /><p className="summary-value">86</p><p className="summary-label">weekly sets</p></div>
             <div><Timer /><p className="summary-value">5</p><p className="summary-label">gym days</p></div>
             <div><Zap /><p className="summary-value">4</p><p className="summary-label">biceps moves</p></div>
           </div>
@@ -183,13 +193,13 @@ export default function Home() {
         <section className="recovery-section">
           <div><p className="section-kicker">THE OTHER TWO DAYS</p><h2>Recover like it is part of training.</h2></div>
           <div className="recovery-card"><span className="recovery-day">SUN</span><div><h3>Cricket only</h3><p>Two T20 matches are your conditioning. Prioritize carbohydrates, fluids and electrolytes.</p></div></div>
-          <div className="recovery-card"><span className="recovery-day">MON</span><div><h3>Full rest</h3><p>Easy walking and the posture reset are fine. No lifting and no hard running.</p></div></div>
+          <div className="recovery-card"><span className="recovery-day">MON</span><div><h3>Full rest</h3><p>Easy walking and gentle mobility are fine. No lifting and no hard running.</p></div></div>
         </section>
 
         <section className="notes-grid">
           <div className="feature-note"><ShieldCheck /><div><h3>Neck-safe rule</h3><p>Keep your head neutral, stop any movement that increases neck pain, and keep shrugs controlled. Radiating pain, tingling or weakness needs a qualified clinician.</p></div></div>
-          <div className="feature-note"><HeartPulse /><div><h3>Posture reset</h3><p>Most days: chin tucks, wall slides, thoracic extension and a doorway chest stretch for 1-2 easy sets.</p></div></div>
-          <div className="feature-note"><Sparkles /><div><h3>How to progress</h3><p>Leave 1-2 good reps in reserve. When both sets reach the top of the range, add the smallest available weight next time.</p></div></div>
+          <div className="feature-note"><HeartPulse /><div><h3>Abs handled separately</h3><p>No ab exercises are programmed here because you train them in your morning routine. Keep that work controlled and recoverable.</p></div></div>
+          <div className="feature-note"><Sparkles /><div><h3>How to progress</h3><p>Tue/Wed/Thu/Sat: finish set one near 2 RIR and set two near 1 RIR. Friday stays near 3 RIR. Add the smallest weight when both sets reach the top of the range cleanly.</p></div></div>
         </section>
       </section>
       <footer><p>ATHLETE 30 · Built for a five-day gym week and Sunday cricket</p></footer>
